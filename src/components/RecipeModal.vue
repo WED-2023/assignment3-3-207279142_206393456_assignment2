@@ -6,7 +6,11 @@
       @hide="resetForm"
       v-model="isVisible"
     >
-      <RecipeForm ref="recipeForm" @submitted="handleSuccess" />
+    <RecipeForm
+      ref="recipeForm"
+      :defaultIsFamily="defaultIsFamily"
+      @submitted="handleSuccess"
+    />
     </b-modal>
   </template>
   
@@ -23,6 +27,10 @@
         type: Boolean,
         required: true,
       },
+      defaultIsFamily: {
+        type: Boolean,
+        default: false
+      }
     },
     emits: ["update:modelValue", "recipe-created"],
     computed: {

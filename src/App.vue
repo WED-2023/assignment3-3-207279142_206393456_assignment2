@@ -12,6 +12,7 @@
         {{ store.username }}:
         <router-link :to="{ name: 'myRecipes' }">My Recipes</router-link> |
         <router-link :to="{ name: 'favorites' }">My Favorites</router-link> |
+        <router-link :to="{ name: 'myFamily' }">My Family</router-link> |
         <button @click="logout" class="btn btn-link p-0">Logout</button> |
       </span>
     </div>

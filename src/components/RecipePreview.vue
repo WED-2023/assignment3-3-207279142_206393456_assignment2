@@ -12,7 +12,12 @@
     <p class="card-text">
       Likes: {{ recipe.aggregateLikes ?? recipe.likes ?? 0 }}
     </p>
-    <pre>{{ recipe }}</pre>
+    <!-- Family Recipe Info -->
+    <p v-if="recipe.family_owner" class="card-text">
+      Family Recipe by {{ recipe.family_owner }} ({{ recipe.family_event }})
+    </p>
+
+    <!--<pre>{{ recipe }}</pre>--> 
 
     <!-- Favorite Button -->
     <button @click.stop="toggleFavorite" class="favorite-btn">
