@@ -1,32 +1,44 @@
 <template>
-  <div class="card h-100">
-    <img
-      v-if="recipe.image"
-      :src="recipe.image"
-      class="card-img-top recipe-image"
-      alt="Recipe image"
-    />
-    <div class="card-body text-center">
-    <h5 class="card-title">{{ recipe.title }}</h5>
-    <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
-    <p class="card-text">
-      Likes: {{ recipe.aggregateLikes ?? recipe.likes ?? 0 }}
-    </p>
-    <!-- Family Recipe Info -->
-    <p v-if="recipe.family_owner" class="card-text">
-      Family Recipe by {{ recipe.family_owner }} ({{ recipe.family_event }})
-    </p>
+  <router-link
+  :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+  class="text-decoration-none text-dark">
+    <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner }">
+      <img
+        v-if="recipe.image"
+        :src="recipe.image"
+        class="card-img-top recipe-image"
+        alt="Recipe image"
+      />
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ recipe.title }}</h5>
+        <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
+        <p class="card-text">
+          Popularity: {{ recipe.popularity ?? 0 }}
+        </p>
+        <div class="diet-labels d-flex justify-content-center gap-3 mt-2">
+          <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
+            🥦 <small>Vegetarian</small>
+          </span>
+          <span :class="['badge-label', recipe.vegan ? 'active' : 'inactive']">
+            🌱 <small>Vegan</small>
+          </span>
+          <span :class="['badge-label', recipe.glutenFree === 0 ? 'active' : 'inactive']">
+            🌾 <small>Gluten Free</small>
+          </span>
+        </div>
 
-    <!--<pre>{{ recipe }}</pre>--> 
 
-    <!-- Favorite Button -->
-    <button @click.stop="toggleFavorite" class="favorite-btn">
-      <span :class="{ filled: isFavorite }">❤</span>
-    </button>
-  </div>
-
-  </div>
+        <p v-if="recipe.family_owner" class="card-text">
+          Family Recipe by {{ recipe.family_owner }} ({{ recipe.family_event }})
+        </p>
+        <button @click.stop="toggleFavorite" class="favorite-btn">
+          <span :class="{ filled: isFavorite }">❤</span>
+        </button>
+      </div>
+    </div>
+  </router-link>
 </template>
+
 
 <script>
 export default {
@@ -95,6 +107,41 @@ export default {
 
 .favorite-btn span.filled {
   color: red;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+.text-dark {
+  color: inherit;
+}
+.diet-labels {
+  flex-wrap: wrap;
+}
+
+.badge-label {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.badge-label small {
+  margin-left: 5px;
+}
+
+.badge-label.active {
+  background-color: #e6f7e6;
+  color: #1b5e20;
+  font-weight: 600;
+}
+
+.badge-label.inactive {
+  background-color: #f0f0f0;
+  color: #999;
+  font-weight: 400;
 }
 
 </style>

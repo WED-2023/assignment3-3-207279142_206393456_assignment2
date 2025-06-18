@@ -7,25 +7,21 @@
       <div v-else-if="recipes.length === 0">
         You have no favorite recipes yet.
       </div>
-      <div v-else class="recipe-list">
-        <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
-          <h3>{{ recipe.title }}</h3>
-          <img v-if="recipe.image" :src="recipe.image" alt="Recipe image" width="200" />
-          <p>Ready in: {{ recipe.readyInMinutes }} minutes</p>
-          <p>Likes: {{ recipe.aggregateLikes }}</p>
-        </div>
-      </div>
+      <RecipePreviewList v-else title="My Favorites" :recipes="recipes" />
+
     </div>
   </template>
   
   <script>
   import { ref, onMounted } from 'vue';
   import RecipeModal from "@/components/RecipeModal.vue";
+  import RecipePreviewList from "@/components/RecipePreviewList.vue";
 
   export default {
     name: 'MyFavoritesPage',
     components: {
       RecipeModal,
+      RecipePreviewList,
     },
     setup() {
       const recipes = ref([]);

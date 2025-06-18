@@ -15,25 +15,22 @@
     <div v-else-if="recipes.length === 0">
       You haven't created any recipes yet.
     </div>
-    <div v-else class="recipe-list">
-      <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
-        <h3>{{ recipe.title }}</h3>
-        <img :src="recipe.image" alt="Recipe image" v-if="recipe.image" />
-        <p>Ready in: {{ recipe.readyInMinutes }} min</p>
-        <p>Servings: {{ recipe.servings }}</p>
-      </div>
-    </div>
+    <RecipePreviewList v-else title="My Recipes" :recipes="recipes" />
+
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
 import RecipeModal from "@/components/RecipeModal.vue";
+import RecipePreviewList from "@/components/RecipePreviewList.vue";
 
 export default {
   name: "MyRecipes",
   components: {
     RecipeModal,
+    RecipePreviewList,
+
   },
   setup() {
     const recipes = ref([]);
