@@ -40,7 +40,10 @@
       const loadFamilyRecipes = async () => {
         try {
           const response = await window.axios.get("/users/myFamily");
-          recipes.value = response.data;
+          recipes.value = response.data.map(r => ({
+            ...r,
+            id: r.recipe_id || r.id
+          }));
         } catch (err) {
           console.error("Failed to load family recipes:", err);
           window.toast("Error", "Could not load family recipes", "danger");

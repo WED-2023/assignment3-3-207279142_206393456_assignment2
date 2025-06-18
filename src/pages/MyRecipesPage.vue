@@ -41,7 +41,10 @@ export default {
     const loadRecipes = async () => {
       try {
         const response = await window.axios.get("/users/myRecipes");
-        recipes.value = response.data;
+        recipes.value = response.data.map(r => ({
+          ...r,
+          id: r.recipe_id || r.id
+        }));
       } catch (err) {
         console.error("API error:", err.response);
         window.toast(

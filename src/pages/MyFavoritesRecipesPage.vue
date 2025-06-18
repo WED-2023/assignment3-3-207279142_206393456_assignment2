@@ -35,7 +35,11 @@
       onMounted(async () => {
         try {
           const response = await window.axios.get('/users/favorites');
-          recipes.value = response.data;
+          console.log("Loaded favorites:", response.data); // ← מוסיפים את זה
+          recipes.value = response.data.map(r => ({
+            ...r,
+            id: r.recipe_id || r.id // ← Ensure the ID is consistent
+          }));
         } catch (err) {
           console.error("Failed to load favorites:", err);
           window.toast("Failed to load favorite recipes", err.response?.data?.message || "Unknown error", "danger");

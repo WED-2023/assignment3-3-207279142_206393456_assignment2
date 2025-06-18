@@ -1,8 +1,10 @@
 <template>
-  <router-link
-  :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-  class="text-decoration-none text-dark">
-    <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner }">
+  <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner }">
+    <!-- Clicking image or title navigates to recipe -->
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="text-decoration-none text-dark"
+    >
       <img
         v-if="recipe.image"
         :src="recipe.image"
@@ -11,32 +13,38 @@
       />
       <div class="card-body text-center">
         <h5 class="card-title">{{ recipe.title }}</h5>
-        <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
-        <p class="card-text">
-          Popularity: {{ recipe.popularity ?? 0 }}
-        </p>
-        <div class="diet-labels d-flex justify-content-center gap-3 mt-2">
-          <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
-            🥦 <small>Vegetarian</small>
-          </span>
-          <span :class="['badge-label', recipe.vegan ? 'active' : 'inactive']">
-            🌱 <small>Vegan</small>
-          </span>
-          <span :class="['badge-label', recipe.glutenFree === 0 ? 'active' : 'inactive']">
-            🌾 <small>Gluten Free</small>
-          </span>
-        </div>
-
-
-        <p v-if="recipe.family_owner" class="card-text">
-          Family Recipe by {{ recipe.family_owner }} ({{ recipe.family_event }})
-        </p>
-        <button @click.stop="toggleFavorite" class="favorite-btn">
-          <span :class="{ filled: isFavorite }">❤</span>
-        </button>
       </div>
+    </router-link>
+
+    <!-- Rest of the info (not clickable) -->
+    <div class="card-body text-center pt-0">
+      <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
+      <p class="card-text">
+        Popularity: {{ recipe.popularity ?? 0 }}
+      </p>
+
+      <div class="diet-labels d-flex justify-content-center gap-3 mt-2">
+        <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
+          🥦 <small>Vegetarian</small>
+        </span>
+        <span :class="['badge-label', recipe.vegan ? 'active' : 'inactive']">
+          🌱 <small>Vegan</small>
+        </span>
+        <span :class="['badge-label', recipe.glutenFree === 0 ? 'active' : 'inactive']">
+          🌾 <small>Gluten Free</small>
+        </span>
+      </div>
+
+      <p v-if="recipe.family_owner" class="card-text">
+        Family Recipe by {{ recipe.family_owner }} ({{ recipe.family_event }})
+      </p>
+
+      <!-- Favorite Button (outside router-link!) -->
+      <button @click.stop="toggleFavorite" class="favorite-btn">
+        <span :class="{ filled: isFavorite }">❤</span>
+      </button>
     </div>
-  </router-link>
+  </div>
 </template>
 
 
@@ -70,6 +78,7 @@ export default {
         return;
       }
       try {
+        console.log("Sending to /users/favorites:", this.recipe.id);
         await this.$root.axios.post("/users/favorites", {
           recipeId: this.recipe.id
         });
