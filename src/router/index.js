@@ -1,5 +1,6 @@
 import Main from "../pages/MainPage.vue";
 import NotFound from "../pages/NotFoundPage.vue";
+import MyRecipes from "../pages/MyRecipesPage.vue";
 
 const routes = [
   {
@@ -31,7 +32,24 @@ const routes = [
     path: "/:catchAll(.*)",
     name: "notFound",
     component: NotFound,
+  },
+  {
+    path: "/my-recipes",
+    name: "myRecipes",
+    component: MyRecipes
+  },
+  {
+    path: "/add-recipe",
+    name: "addRecipe",
+    component: () => import("../pages/AddRecipePage.vue")
+  },
+  {
+    path: "/my-favorites",
+    name: "favorites",
+    component: () => import("../pages/MyFavoritesPage.vue"),
   }
+  
+  
 ];
 
 export default routes;

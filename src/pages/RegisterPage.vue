@@ -204,6 +204,7 @@ export default {
   <div class="register-page">
     <h1>Register</h1>
     <form @submit.prevent="register" @input="v$.$touch()">
+      <!-- Username -->
       <div class="form-group">
         <label>Username:</label>
         <input v-model="state.username" type="text" class="form-control" />
@@ -215,22 +216,21 @@ export default {
         </div>
       </div>
 
+      <!-- First Name -->
       <div class="form-group">
         <label>First Name:</label>
         <input v-model="state.firstname" type="text" class="form-control" />
-        <div v-if="v$.firstname?.$error" class="text-danger">
-          First name is required.
-        </div>
+        <div v-if="v$.firstname?.$error" class="text-danger">First name is required.</div>
       </div>
 
+      <!-- Last Name -->
       <div class="form-group">
         <label>Last Name:</label>
         <input v-model="state.lastname" type="text" class="form-control" />
-        <div v-if="v$.lastname?.$error" class="text-danger">
-          Last name is required.
-        </div>
+        <div v-if="v$.lastname?.$error" class="text-danger">Last name is required.</div>
       </div>
 
+      <!-- Country -->
       <div class="form-group">
         <label>Country:</label>
         <select v-model="state.country" class="form-control">
@@ -239,15 +239,18 @@ export default {
             {{ country }}
           </option>
         </select>
-        <div v-if="v$.country?.$error" class="text-danger">
-          Country is required.
-        </div>
+        <div v-if="v$.country?.$error" class="text-danger">Country is required.</div>
       </div>
 
+      <!-- Password -->
       <div class="form-group">
         <label>Password:</label>
-        <input v-model="state.password" type="password" class="form-control" />
-        <div v-if="v$.password.$error" class="text-danger">
+        <input
+          :type="showPasswords ? 'text' : 'password'"
+          v-model="state.password"
+          class="form-control"
+        />
+        <div v-if="v$.password.$error" class="text-danger mt-1">
           <div v-if="v$.password.required.$invalid">Password is required.</div>
           <div v-if="v$.password.minLength.$invalid">At least 5 characters.</div>
           <div v-if="v$.password.maxLength.$invalid">At most 10 characters.</div>
@@ -255,15 +258,32 @@ export default {
         </div>
       </div>
 
+      <!-- Confirm Password -->
       <div class="form-group">
         <label>Confirm Password:</label>
-        <input v-model="state.confirmPassword" type="password" class="form-control" />
-        <div v-if="v$.confirmPassword.$error" class="text-danger">
+        <input
+          :type="showPasswords ? 'text' : 'password'"
+          v-model="state.confirmPassword"
+          class="form-control"
+        />
+        <div v-if="v$.confirmPassword.$error" class="text-danger mt-1">
           <div v-if="v$.confirmPassword.required.$invalid">Please confirm your password.</div>
           <div v-if="v$.confirmPassword.sameAsPassword.$invalid">Passwords do not match.</div>
         </div>
       </div>
 
+      <!-- One checkbox for both -->
+      <div class="form-check mt-2 mb-3">
+        <input
+          type="checkbox"
+          id="showPasswords"
+          class="form-check-input"
+          v-model="showPasswords"
+        />
+        <label for="showPasswords" class="form-check-label">Show password</label>
+      </div>
+
+      <!-- Email -->
       <div class="form-group">
         <label>Email:</label>
         <input v-model="state.email" type="email" class="form-control" />
@@ -286,7 +306,6 @@ import { required, minLength, maxLength, email, sameAs, helpers } from '@vuelida
 export default {
   name: "RegisterPage",
   setup(_, { expose }) {
-    // Use reactive instead of ref for consistent access
     const state = reactive({
       username: '',
       firstname: '',
@@ -326,6 +345,7 @@ export default {
 
     const v$ = useVuelidate(rules, state);
     const countries = ref([]);
+    const showPasswords = ref(false);
 
     onMounted(async () => {
       try {
@@ -367,7 +387,8 @@ export default {
       state,
       v$,
       register,
-      countries
+      countries,
+      showPasswords
     };
   }
 };

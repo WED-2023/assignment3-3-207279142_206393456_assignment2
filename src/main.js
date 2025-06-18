@@ -93,6 +93,7 @@ if (token) {
 
 // Set base URL for all axios requests
 axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.withCredentials = true;
 
 // Setup Vue router
 const router = createRouter({

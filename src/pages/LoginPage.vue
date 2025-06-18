@@ -18,8 +18,21 @@
 
       <div class="form-group">
         <label>Password:</label>
-        <input v-model="state.password" type="password" class="form-control" />
-        <div v-if="v$.password.$dirty && v$.password.$invalid" class="text-danger">
+        <input
+          :type="showPassword ? 'text' : 'password'"
+          v-model="state.password"
+          class="form-control"
+        />
+        <div class="form-check mt-1">
+          <input
+            type="checkbox"
+            id="showPassword"
+            class="form-check-input"
+            v-model="showPassword"
+          />
+          <label for="showPassword" class="form-check-label">Show password</label>
+        </div>
+        <div v-if="v$.password.$dirty && v$.password.$invalid" class="text-danger mt-1">
           <div v-if="v$.password.required.$invalid">Password is required.</div>
           <div v-if="v$.password.minLength.$invalid">Password must be at least 6 characters.</div>
         </div>
@@ -30,7 +43,7 @@
       </button>
 
       <div class="mt-3 text-center">
-        <p>Don't have an account? 
+        <p>Don't have an account?
           <a @click.prevent="goToRegister" href="#">Register here</a>
         </p>
       </div>
@@ -59,6 +72,7 @@ export default {
     const v$ = useVuelidate(rules, state);
     const loginError = ref('');
     const isLoading = ref(false);
+    const showPassword = ref(false); // ← checkbox binding
 
     const login = async () => {
       loginError.value = '';
@@ -71,11 +85,9 @@ export default {
             password: state.password
           });
 
-          // Save username and navigate to main page
           window.store.login(state.username);
           window.router.push('/');
         } catch (err) {
-          // Handle known error statuses
           if (err.response?.status === 401 || err.response?.status === 403) {
             loginError.value = 'Incorrect username or password.';
           } else {
@@ -92,7 +104,7 @@ export default {
     };
 
     expose({ login });
-    return { state, v$, login, goToRegister, loginError, isLoading };
+    return { state, v$, login, goToRegister, loginError, isLoading, showPassword };
   }
 };
 </script>
