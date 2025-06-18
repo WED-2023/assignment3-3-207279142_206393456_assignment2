@@ -20,7 +20,7 @@
     <div class="card-body text-center pt-0">
       <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
       <p class="card-text">
-        Popularity: {{ recipe.popularity ?? 0 }}
+        Popularity: {{ likes }}
       </p>
 
       <div class="diet-labels d-flex justify-content-center gap-3 mt-2">
@@ -43,6 +43,11 @@
       <button @click.stop="toggleFavorite" class="favorite-btn">
         <span :class="{ filled: isFavorite }">❤</span>
       </button>
+      <!-- Like Button (outside router-link!) -->
+      <button @click.stop="likeRecipe" class="like-btn">
+        👍 {{ likes }}
+      </button>
+
     </div>
   </div>
 </template>
@@ -59,7 +64,9 @@ export default {
   },
   data() {
     return {
-      isFavorite: false
+      isFavorite: false,
+      likes: this.recipe.popularity ?? 0,
+      hasLiked: false
     };
   },
   async mounted() {
@@ -88,7 +95,22 @@ export default {
         console.error("Failed to favorite recipe:", err);
         this.$root.toast("Error", "Could not add to favorites", "danger");
       }
+    },
+    async likeRecipe() {
+      if (this.hasLiked) {
+        return;
+      }
+      try {
+        await this.$root.axios.put(`/recipes/${this.recipe.id}/like`);
+        this.likes += 1; 
+        this.hasLiked = true;
+      } catch (err) {
+        console.error("Failed to like recipe:", err);
+        this.$root.toast("Error", "Could not like recipe", "danger");
+      }
     }
+
+
   }
 };
 
@@ -152,5 +174,19 @@ export default {
   color: #999;
   font-weight: 400;
 }
+.like-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 8px;
+  color: gray;
+}
+
+.like-btn:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
 
 </style>
