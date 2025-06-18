@@ -1,19 +1,55 @@
+// import { reactive } from 'vue';
+
+// const store = reactive({
+//   username: localStorage.getItem('username'),
+//   server_domain: "http://localhost:3000",
+
+//   login(username) {
+//     localStorage.setItem('username', username);
+//     this.username = username;
+//     console.log("login", this.username);
+//   },
+
+//   logout() {
+//     console.log("logout");
+//     localStorage.removeItem('username');
+//     this.username = undefined;
+//   }
+// });
+
+// export default store;
 import { reactive } from 'vue';
 
 const store = reactive({
+  // Get username from localStorage if exists
   username: localStorage.getItem('username'),
+
+  // Base server domain used across the app
   server_domain: "http://localhost:3000",
 
+  // Save username to localStorage and update store
   login(username) {
     localStorage.setItem('username', username);
     this.username = username;
     console.log("login", this.username);
   },
 
+  // Clear all user data and navigate to login
   logout() {
     console.log("logout");
+
+    // Remove user info and token from localStorage
     localStorage.removeItem('username');
+    localStorage.removeItem('token');
+
+    // Remove auth header from axios
+    delete window.axios.defaults.headers.common['Authorization'];
+
+    // Reset store state
     this.username = undefined;
+
+    // Redirect to login page
+    window.router.push('/login');
   }
 });
 
