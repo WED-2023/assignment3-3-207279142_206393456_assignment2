@@ -2,6 +2,8 @@
     <div class="container">
       <div v-if="recipe">
         <div class="recipe-header mt-3 mb-4">
+          <b-button variant="primary" @click="showModal = true">+ Add Recipe</b-button>
+          <RecipeModal v-model="showModal" @recipe-created="handleRecipeCreated" />
           <h1>{{ recipe.title }}</h1>
           <img :src="recipe.image" class="center" />
           <!-- Favorite Button -->
@@ -46,7 +48,22 @@
   </template>
   
   <script>
+  import { ref } from 'vue';
+  import RecipeModal from "@/components/RecipeModal.vue";
+
   export default {
+    components: {
+      RecipeModal,
+    },
+    setup() {
+      const showModal = ref(false);
+
+      const handleRecipeCreated = () => {
+        showModal.value = false;
+      };
+
+      return { showModal, handleRecipeCreated };
+    },
     data() {
       return {
         recipe: null,
