@@ -128,6 +128,13 @@
         const favRes = await this.axios.get("/users/favorites");
         const favoriteIds = favRes.data.map(r => r.recipe_id || r.id);
         this.isFavorite = favoriteIds.includes(+this.$route.params.recipeId);
+        // Mark recipe as watched if user is logged in
+        if (this.$root.store.username) {
+          await this.axios.post("/users/viewed", {
+            recipeId: this.$route.params.recipeId
+          });
+        }
+
       } catch (error) {
         console.error("Failed to fetch recipe", error);
         this.$router.replace("/NotFound");
