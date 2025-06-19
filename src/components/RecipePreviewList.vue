@@ -101,8 +101,10 @@ export default {
     recipes: {
       type: Array,
       required: true,
-    }
+    },
+    
   }
+
 };
 </script>
 

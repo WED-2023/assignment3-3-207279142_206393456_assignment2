@@ -9,7 +9,15 @@
     </div>
 
     <!-- Random recipes section -->
-    <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
+    <RecipePreviewList
+      title="Random Recipes"
+      class="RandomRecipes center"
+      :recipes="randomRecipes"
+    />
+    <div class="text-center">
+      <button class="btn btn-outline-secondary" @click="fetchRandomRecipes">More</button>
+    </div>
+
 
     <!-- Message for guests who are not logged in -->
     <div v-if="!store.username" class="text-center mt-4">
@@ -21,20 +29,22 @@
     <!-- Last viewed recipes (blurred for guests) -->
     <RecipePreviewList
       title="Last Viewed Recipes"
+      :recipes="lastViewed"
       :class="{
         RandomRecipes: true,
         blur: !store.username,
         center: true
       }"
-      disabled
     />
+
   </div>
 </template>
 
 <script>
-import { getCurrentInstance, ref } from 'vue';
+import { onMounted, ref, getCurrentInstance } from 'vue';
 import RecipePreviewList from "../components/RecipePreviewList.vue";
 import RecipeModal from "@/components/RecipeModal.vue";
+import axios from 'axios';
 
 export default {
   components: {
@@ -45,12 +55,39 @@ export default {
     const internalInstance = getCurrentInstance();
     const store = internalInstance.appContext.config.globalProperties.store;
     const showModal = ref(false);
+    const randomRecipes = ref([]);
+    const lastViewed = ref([]);
 
+    onMounted(async () => {
+      if (store.username) {
+        try {
+          const response = await axios.get("/users/lastWatched", {
+            withCredentials: true
+          });
+          lastViewed.value = response.data;
+        } catch (err) {
+          console.error("Failed to fetch last watched recipes:", err);
+        }
+      }
+      await fetchRandomRecipes();
+
+    });
     const handleRecipeCreated = () => {
       showModal.value = false;
     };
+    const fetchRandomRecipes = async () => {
+      try {
+        const response = await axios.get("/recipes/random", {
 
-    return { store, showModal, handleRecipeCreated };
+          withCredentials: true
+        });
+        randomRecipes.value = response.data;
+      } catch (error) {
+        console.error("Failed to fetch random recipes:", error);
+      }
+    };
+
+    return { store, showModal, handleRecipeCreated ,  randomRecipes, lastViewed, fetchRandomRecipes };
   }
 };
 </script>
