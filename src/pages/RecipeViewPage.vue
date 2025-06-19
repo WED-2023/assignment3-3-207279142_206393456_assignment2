@@ -21,17 +21,26 @@
             <div class="wrapped">
               <div class="mb-3">
                 <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
+                <div>Servings: {{ recipe.servings }}</div>
+                <div class="diet-labels d-flex gap-2 mt-2">
+                  <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
+                    🥦 <small>Vegetarian</small>
+                  </span>
+                  <span :class="['badge-label', recipe.vegan ? 'active' : 'inactive']">
+                    🌱 <small>Vegan</small>
+                  </span>
+                  <span :class="['badge-label', recipe.glutenFree ? 'active' : 'inactive']">
+                    🌾 <small>Gluten Free</small>
+                  </span>
+                </div>
+
                 <!-- <div>Likes: {{ recipe.aggregateLikes }} likes</div> -->
                 <div>Likes: {{ likes }} likes</div>
 
               </div>
               Ingredients:
               <ul>
-                <li
-                  v-for="(r, index) in recipe.extendedIngredients"
-                  :key="index + '_' + r.id"
-                >
-                  {{ r.original }}
+                <li v-for="(ing, index) in recipe.ingredients" :key="index"> {{ ing.name }} – {{ ing.quantity }}
                 </li>
               </ul>
             </div>
@@ -94,14 +103,18 @@
 
         if (response.status !== 200) this.$router.replace("/NotFound");
         this.recipe = {
-          instructions, // already array
-          extendedIngredients,
+          instructions,
+          ingredients: response.data.ingredients ?? extendedIngredients,
           popularity,
           readyInMinutes,
           image,
           title,
-          servings
+          servings,
+          vegetarian: response.data.vegetarian,
+          vegan: response.data.vegan,
+          glutenFree: response.data.glutenFree
         };
+
         this.likes = popularity;
 
 
@@ -132,7 +145,8 @@
         if (this.$root.store.username) {
           await this.axios.post("/users/viewed", {
             recipeId: this.$route.params.recipeId
-          });
+          },
+          { withCredentials: true });
         }
 
       } catch (error) {
@@ -208,6 +222,35 @@
 .favorite-btn span.filled {
   color: red;
 }
+.diet-labels {
+  flex-wrap: wrap;
+}
+
+.badge-label {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.badge-label small {
+  margin-left: 5px;
+}
+
+.badge-label.active {
+  background-color: #e6f7e6;
+  color: #1b5e20;
+  font-weight: 600;
+}
+
+.badge-label.inactive {
+  background-color: #f0f0f0;
+  color: #999;
+  font-weight: 400;
+}
+
   /* .recipe-header{
   
   } */
