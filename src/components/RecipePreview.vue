@@ -80,12 +80,16 @@ export default {
   },
   methods: {
     async toggleFavorite() {
+      if (!this.$root.store.username) {
+        this.$root.toast("Login Required", "Please log in to add favorites", "warning");
+        return;
+      }
+
       if (this.isFavorite) {
         this.$root.toast("Already Favorited", "This recipe is already in favorites", "info");
         return;
       }
       try {
-        console.log("Sending to /users/favorites:", this.recipe.id);
         await this.$root.axios.post("/users/favorites", {
           recipeId: this.recipe.id
         });

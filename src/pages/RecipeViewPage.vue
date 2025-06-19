@@ -10,13 +10,20 @@
           <button @click="toggleFavorite" class="favorite-btn">
             <span :class="{ filled: isFavorite }">❤</span>
           </button>
+          <!-- Like Button -->
+          <button @click="likeRecipe" class="like-btn">
+            👍 {{ likes }}
+          </button>
+
         </div>
         <div class="recipe-body">
           <div class="wrapper">
             <div class="wrapped">
               <div class="mb-3">
                 <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-                <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+                <!-- <div>Likes: {{ recipe.aggregateLikes }} likes</div> -->
+                <div>Likes: {{ likes }} likes</div>
+
               </div>
               Ingredients:
               <ul>
@@ -31,9 +38,9 @@
             <div class="wrapped">
               Instructions:
               <ol>
-                <li v-for="s in recipe._instructions" :key="s.number">
-                  {{ s.step }}
-                </li>
+                <li v-for="(step, index) in recipe.instructions" :key="index" v-html="step"></li>
+
+
               </ol>
             </div>
           </div>
@@ -67,46 +74,55 @@
     data() {
       return {
         recipe: null,
-        isFavorite: false
+        isFavorite: false,
+        likes: 0,
+        hasLiked: false
       };
     },
     async created() {
       try {
-        const response = await this.axios.get(
-          this.$root.store.server_domain + "/recipes/info",
-          {
-            params: { id: this.$route.params.recipeId }
-          }
-        );
-        if (response.status !== 200) this.$router.replace("/NotFound");
-  
+        const response = await this.axios.get(`/recipes/${this.$route.params.recipeId}`);
         const {
-          analyzedInstructions,
           instructions,
           extendedIngredients,
-          aggregateLikes,
+          popularity,
           readyInMinutes,
           image,
-          title
-        } = response.data.recipe;
-  
-        const _instructions = analyzedInstructions
-          .map((fstep) => {
-            fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-            return fstep.steps;
-          })
-          .reduce((a, b) => [...a, ...b], []);
-  
+          title,
+          servings
+        } = response.data;
+
+        if (response.status !== 200) this.$router.replace("/NotFound");
         this.recipe = {
-          instructions,
-          _instructions,
-          analyzedInstructions,
+          instructions, // already array
           extendedIngredients,
-          aggregateLikes,
+          popularity,
           readyInMinutes,
           image,
-          title
+          title,
+          servings
         };
+        this.likes = popularity;
+
+
+
+        // const _instructions = analyzedInstructions
+        //   .map((fstep) => {
+        //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+        //     return fstep.steps;
+        //   })
+        //   .reduce((a, b) => [...a, ...b], []);
+  
+        // this.recipe = {
+        //   _instructions,
+        //   _instructions,
+        //   analyzedInstructions,
+        //   extendedIngredients,
+        //   aggregateLikes,
+        //   readyInMinutes,
+        //   image,
+        //   title
+        // };
   
         // Check if this recipe is already a favorite
         const favRes = await this.axios.get("/users/favorites");
@@ -119,6 +135,10 @@
     },
     methods: {
       async toggleFavorite() {
+        if (!this.$root.store.username) {
+          this.$root.toast("Login Required", "Please log in to add favorites", "warning");
+          return;
+        }
         if (this.isFavorite) {
           this.$root.toast("Already Favorited", "This recipe is already in favorites", "info");
           return;
@@ -133,7 +153,21 @@
           console.error("Favorite failed", err);
           this.$root.toast("Error", err.response?.data?.message || "Failed to favorite", "danger");
         }
+      },
+      async likeRecipe() {
+        if (this.hasLiked) return;
+
+        try {
+          await this.axios.put(`/recipes/${this.$route.params.recipeId}/like`);
+          this.likes += 1;
+          this.hasLiked = true;
+          this.$root.toast("Thanks!", "You liked this recipe", "success");
+        } catch (err) {
+          console.error("Failed to like recipe:", err);
+          this.$root.toast("Error", "Could not like recipe", "danger");
+        }
       }
+
     }
   };
   </script>
