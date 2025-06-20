@@ -80,7 +80,7 @@ export default {
     </h3>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
+        <RecipePreview class="recipePreview" :recipe="r" :was-viewed="r.wasViewed" />
       </b-col>
     </b-row>
   </b-container>
@@ -103,8 +103,10 @@ export default {
       required: true,
     },
     
-  }
-
+  },
+  mounted() {
+      console.log("recipes from parent:", this.recipes);
+    },
 };
 </script>
 

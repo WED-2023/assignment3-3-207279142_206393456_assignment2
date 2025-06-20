@@ -64,7 +64,12 @@ export default {
           const response = await axios.get("/users/lastWatched", {
             withCredentials: true
           });
-          lastViewed.value = response.data;
+          console.log("Fetched watched recipes:", response.data);
+
+          lastViewed.value = response.data.map(recipe => ({
+            ...recipe,
+            wasViewed: true
+          }));
         } catch (err) {
           console.error("Failed to fetch last watched recipes:", err);
         }

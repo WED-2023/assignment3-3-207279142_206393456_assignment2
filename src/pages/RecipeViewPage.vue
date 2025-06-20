@@ -22,6 +22,15 @@
               <div class="mb-3">
                 <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
                 <div>Servings: {{ recipe.servings }}</div>
+                <!-- Family recipe info -->
+                <div v-if="recipe.family_owner" class="mt-3">
+                  <h5>Family Recipe Details:</h5>
+                  <ul>
+                    <li><strong>Cooked by:</strong> {{ recipe.family_owner }}</li>
+                    <li><strong>When it's made:</strong> {{ recipe.family_event }}</li>
+                  </ul>
+                </div>
+
                 <div class="diet-labels d-flex gap-2 mt-2">
                   <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
                     🥦 <small>Vegetarian</small>
@@ -112,8 +121,10 @@
           servings,
           vegetarian: response.data.vegetarian,
           vegan: response.data.vegan,
-          glutenFree: response.data.glutenFree
-        };
+          glutenFree: response.data.glutenFree,
+          family_owner: response.data.family_owner,
+          family_event: response.data.family_event        };
+
 
         this.likes = popularity;
 

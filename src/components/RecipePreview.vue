@@ -3,16 +3,29 @@
     <!-- Clicking image or title navigates to recipe -->
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-      class="text-decoration-none text-dark"
-    >
-      <img
-        v-if="recipe.image"
-        :src="recipe.image"
-        class="card-img-top recipe-image"
-        alt="Recipe image"
-      />
+      class="text-decoration-none text-dark">
+      <div class="image-wrapper">
+        <img v-if="recipe.image" :src="recipe.image" class="card-img-top recipe-image" alt="Recipe image"/>
+
+        <!-- Eye icon positioned on top of the image -->
+        <i
+          :class="[
+            'bi',
+            wasViewedLocal ? 'bi-eye-fill' : 'bi-eye-slash-fill',
+            'viewed-icon-absolute'
+          ]"
+          :title="wasViewedLocal ? 'Already viewed' : 'Not viewed yet'"
+        ></i>
+
+        <div class="image-overlay">To view the recipe</div>
+      </div>
+
+
       <div class="card-body text-center">
-        <h5 class="card-title">{{ recipe.title }}</h5>
+        <h5 class="card-title d-flex justify-content-center align-items-center gap-2">
+          {{ recipe.title }}
+
+        </h5>
       </div>
     </router-link>
 
@@ -58,15 +71,20 @@ export default {
   name: "RecipePreview",
   props: {
     recipe: {
-      type: Object,
-      required: true
+    type: Object,
+    required: true
+    },
+    wasViewed: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       isFavorite: false,
       likes: this.recipe.popularity ?? 0,
-      hasLiked: false
+      hasLiked: false,
+      wasViewedLocal: false 
     };
   },
   async mounted() {
@@ -74,6 +92,9 @@ export default {
       const favs = await this.$root.axios.get("/users/favorites");
       const favIds = favs.data.map(r => r.recipe_id || r.id);
       this.isFavorite = favIds.includes(this.recipe.id);
+      const viewed = await this.$root.axios.get("/users/lastWatched");
+      const viewedIds = viewed.data.map(r => r.recipe_id || r.id);
+      this.wasViewedLocal = viewedIds.includes(this.recipe.id);
     } catch (err) {
       console.error("Failed to check favorites:", err);
     }
@@ -123,10 +144,35 @@ export default {
 <style scoped>
 .recipe-image {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
 }
-
+.image-wrapper:hover .recipe-image {
+  transform: scale(1.03);
+  opacity: 0.7;
+}
+.recipe-image:hover {
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.image-wrapper:hover .image-overlay {
+  opacity: 1;
+}
 .favorite-btn {
   background: none;
   border: none;
@@ -192,5 +238,37 @@ export default {
   opacity: 0.8;
 }
 
+.preview-wrapper {
+  position: relative;
+}
 
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.viewed-icon-absolute {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  z-index: 2;
+  font-size: 1rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewed-icon-absolute.bi-eye-fill {
+  color: white;
+}
+.viewed-icon-absolute.bi-eye-slash-fill {
+  color: white;
+}
 </style>

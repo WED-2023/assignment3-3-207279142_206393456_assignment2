@@ -162,7 +162,7 @@
 // app.mount('#app');
 
 
-
+// Create Vue app and configure dependencies
 import { createApp } from 'vue';
 import App from './App.vue';
 import routes from './router/index';
@@ -170,23 +170,23 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import { createRouter, createWebHistory } from 'vue-router';
 
-// Bootstrap & BootstrapVue3
+// Import Bootstrap and BootstrapVue 3
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
-import { BootstrapVue3 } from 'bootstrap-vue-3';  
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import { BootstrapVue3, VBTooltip } from 'bootstrap-vue-3';
 
 import store from './store';
 
-// Set Authorization header if token exists
-const token = localStorage.getItem('token');
-if (token) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
+// Create Vue application instance
+const app = createApp(App);
 
-// Set base URL for all axios requests
-axios.defaults.baseURL = 'http://localhost:3000';
-axios.defaults.withCredentials = true;
+// Register BootstrapVue 3 plugin (must come before directives)
+app.use(BootstrapVue3);
+
+// Register tooltip directive from BootstrapVue
+app.directive('b-tooltip', VBTooltip);
 
 // Setup Vue router
 const router = createRouter({
@@ -194,19 +194,23 @@ const router = createRouter({
   routes
 });
 
-// Create Vue app
-const app = createApp(App);
+// Configure global Axios settings
+const token = localStorage.getItem('token');
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.withCredentials = true;
 
-// Use plugins
+// Register plugins
 app.use(router);
 app.use(VueAxios, axios);
-app.use(BootstrapVue3); 
 
-// Global store access
+// Global access to store
 app.config.globalProperties.store = store;
 window.store = store;
 
-// Global toast function
+// Global toast notification function
 app.config.globalProperties.toast = function (title, content, variant = null, append = false) {
   const toastContainerId = "toast-container";
   let toastContainer = document.getElementById(toastContainerId);
@@ -247,10 +251,10 @@ app.config.globalProperties.toast = function (title, content, variant = null, ap
   }, 3000);
 };
 
-// Expose global objects
+// Expose important global objects for debugging
 window.router = router;
 window.axios = axios;
 window.toast = app.config.globalProperties.toast;
 
-// Mount app
+// Mount the Vue app to the DOM
 app.mount('#app');
