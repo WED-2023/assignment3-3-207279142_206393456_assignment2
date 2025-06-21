@@ -32,9 +32,7 @@
     <!-- Rest of the info (not clickable) -->
     <div class="card-body text-center pt-0">
       <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
-      <p class="card-text">
-        Popularity: {{ likes }}
-      </p>
+
 
       <div class="diet-labels d-flex justify-content-center gap-3 mt-2">
         <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
@@ -43,7 +41,7 @@
         <span :class="['badge-label', recipe.vegan ? 'active' : 'inactive']">
           🌱 <small>Vegan</small>
         </span>
-        <span :class="['badge-label', recipe.glutenFree === 0 ? 'active' : 'inactive']">
+        <span :class="['badge-label', recipe.glutenFree ? 'active' : 'inactive']">
           🌾 <small>Gluten Free</small>
         </span>
       </div>

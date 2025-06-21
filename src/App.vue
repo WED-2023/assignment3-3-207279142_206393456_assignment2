@@ -34,6 +34,7 @@ export default {
     const router = internalInstance.appContext.config.globalProperties.$router;
 
     const logout = () => {
+      localStorage.removeItem(`lastSearch-${store.username}`)
       store.logout();
       toast("Logout", "User logged out successfully", "success");
       router.push("/").catch(() => {});
