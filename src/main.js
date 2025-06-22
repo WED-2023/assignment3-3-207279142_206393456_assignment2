@@ -173,6 +173,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 // Import Bootstrap and BootstrapVue 3
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { BootstrapVue3, VBTooltip } from 'bootstrap-vue-3';

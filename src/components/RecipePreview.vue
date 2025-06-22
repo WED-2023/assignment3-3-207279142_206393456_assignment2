@@ -1,38 +1,45 @@
 <template>
   <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner }">
-    <!-- Clicking image or title navigates to recipe -->
-    <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-      class="text-decoration-none text-dark">
-      <div class="image-wrapper">
-        <img v-if="recipe.image" :src="recipe.image" class="card-img-top recipe-image" alt="Recipe image"/>
-
-        <!-- Eye icon positioned on top of the image -->
-        <i
-          :class="[
-            'bi',
-            wasViewedLocal ? 'bi-eye-fill' : 'bi-eye-slash-fill',
-            'viewed-icon-absolute'
-          ]"
-          :title="wasViewedLocal ? 'Already viewed' : 'Not viewed yet'"
-        ></i>
-
+    <div class="image-wrapper">
+      <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+        class="text-decoration-none text-dark"
+      >
+        <img
+          v-if="recipe.image"
+          :src="recipe.image"
+          class="card-img-top recipe-image"
+          alt="Recipe image"
+        />
         <div class="image-overlay">To view the recipe</div>
-      </div>
+      </router-link>
 
+      <!-- Eye icon at top-right -->
+      <i
+        :class="[
+          'bi',
+          wasViewedLocal ? 'bi-eye-fill' : 'bi-eye-slash-fill',
+          'viewed-icon-absolute'
+        ]"
+        :title="wasViewedLocal ? 'Already viewed' : 'Not viewed yet'"
+      ></i>
 
-      <div class="card-body text-center">
-        <h5 class="card-title d-flex justify-content-center align-items-center gap-2">
-          {{ recipe.title }}
+      <!-- Heart icon at top-left -->
+      <button @click.stop="toggleFavorite"
+        :class="['favorite-icon-simple', { filled: isFavorite }]">
+        ❤
+      </button>
 
-        </h5>
-      </div>
-    </router-link>
+    </div>
 
-    <!-- Rest of the info (not clickable) -->
+    <div class="card-body text-center">
+      <h5 class="card-title d-flex justify-content-center align-items-center gap-2">
+        {{ recipe.title }}
+      </h5>
+    </div>
+
     <div class="card-body text-center pt-0">
       <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
-
 
       <div class="diet-labels d-flex justify-content-center gap-3 mt-2">
         <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
@@ -50,15 +57,10 @@
         Family Recipe by {{ recipe.family_owner }} ({{ recipe.family_event }})
       </p>
 
-      <!-- Favorite Button (outside router-link!) -->
-      <button @click.stop="toggleFavorite" class="favorite-btn">
-        <span :class="{ filled: isFavorite }">❤</span>
-      </button>
-      <!-- Like Button (outside router-link!) -->
+      <!-- Like button -->
       <button @click.stop="likeRecipe" class="like-btn">
         👍 {{ likes }}
       </button>
-
     </div>
   </div>
 </template>
@@ -140,6 +142,36 @@ export default {
 </script>
 
 <style scoped>
+
+.card {
+  max-width: 400px; 
+  max-height: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.image-wrapper {
+  height: 100px;
+}
+
+
+.card-body {
+  padding: 4px 8px !important;
+  margin: 0 !important;
+}
+.card-text {
+  margin-bottom: 2px !important;
+  line-height: 1.1;
+}
+.card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .recipe-image {
   width: 100%;
   height: 100%;
@@ -183,8 +215,23 @@ export default {
   color: #aaa;
   transition: color 0.3s ease;
 }
+.favorite-icon-simple {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: gray;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+}
+.favorite-icon-simple:hover {
+  opacity: 0.8;
+}
 
-.favorite-btn span.filled {
+.favorite-icon-simple.filled {
   color: red;
 }
 
@@ -218,8 +265,8 @@ export default {
 }
 
 .badge-label.inactive {
-  background-color: #f0f0f0;
-  color: #999;
+  background-color: gray;
+  color: #f7f0f0;
   font-weight: 400;
 }
 .like-btn {
@@ -269,4 +316,6 @@ export default {
 .viewed-icon-absolute.bi-eye-slash-fill {
   color: white;
 }
+
+
 </style>

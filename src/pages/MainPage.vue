@@ -2,22 +2,32 @@
   <div class="container">
     <h1 class="title">Main Page</h1>
 
-    <!-- Show "Add Recipe" button and modal only if user is logged in -->
-    <div v-if="store.username" class="text-end mb-3">
-      <b-button variant="primary" @click="showModal = true">+ Add Recipe</b-button>
-      <RecipeModal v-model="showModal" @recipe-created="handleRecipeCreated" />
-    </div>
+    <!-- Grid row: Left = recipes, Right = login / last viewed -->
+    <div class="row">
+      <!-- Left: Recipes list -->
+      <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+        <RecipePreviewList
+          title="Random Recipes"
+          class="RandomRecipes"
+          :recipes="randomRecipes"
+        />
+        <button class="btn btn-outline-primary mt-3" @click="fetchRandomRecipes">More</button>
+      </div>
+      <!-- Right: login form or last viewed -->
+      <div class="col-12 col-md-6 d-flex justify-content-center">
+        <div v-if="!store.username" class="login-wrapper">
+          <InlineLogin />
+        </div>
 
-    <!-- Random recipes section -->
-    <RecipePreviewList
-      title="Random Recipes"
-      class="RandomRecipes center"
-      :recipes="randomRecipes"
-    />
-    <div class="text-center">
-      <button class="btn btn-outline-secondary" @click="fetchRandomRecipes">More</button>
-    </div>
+        <RecipePreviewList
+          v-else
+          title="Last Viewed Recipes"
+          :recipes="lastViewed"
+          class="RandomRecipes"
+        />
+      </div>
 
+    </div>
 
     <!-- Message for guests who are not logged in -->
     <div v-if="!store.username" class="text-center mt-4">
@@ -25,31 +35,19 @@
         <button class="btn btn-primary">You need to Login to view this</button>
       </router-link>
     </div>
-
-    <!-- Last viewed recipes (blurred for guests) -->
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :recipes="lastViewed"
-      :class="{
-        RandomRecipes: true,
-        blur: !store.username,
-        center: true
-      }"
-    />
-
   </div>
 </template>
 
 <script>
 import { onMounted, ref, getCurrentInstance } from 'vue';
 import RecipePreviewList from "../components/RecipePreviewList.vue";
-import RecipeModal from "@/components/RecipeModal.vue";
+import InlineLogin from "@/components/InlineLogin.vue";
 import axios from 'axios';
 
 export default {
   components: {
     RecipePreviewList,
-    RecipeModal
+    InlineLogin
   },
   setup() {
     const internalInstance = getCurrentInstance();
@@ -58,14 +56,27 @@ export default {
     const randomRecipes = ref([]);
     const lastViewed = ref([]);
 
+    const handleRecipeCreated = () => {
+      showModal.value = false;
+    };
+
+    const fetchRandomRecipes = async () => {
+      try {
+        const response = await axios.get("/recipes/random", {
+          withCredentials: true
+        });
+        randomRecipes.value = response.data;
+      } catch (error) {
+        console.error("Failed to fetch random recipes:", error);
+      }
+    };
+
     onMounted(async () => {
       if (store.username) {
         try {
           const response = await axios.get("/users/lastWatched", {
             withCredentials: true
           });
-          console.log("Fetched watched recipes:", response.data);
-
           lastViewed.value = response.data.map(recipe => ({
             ...recipe,
             wasViewed: true
@@ -75,24 +86,16 @@ export default {
         }
       }
       await fetchRandomRecipes();
-
     });
-    const handleRecipeCreated = () => {
-      showModal.value = false;
-    };
-    const fetchRandomRecipes = async () => {
-      try {
-        const response = await axios.get("/recipes/random", {
 
-          withCredentials: true
-        });
-        randomRecipes.value = response.data;
-      } catch (error) {
-        console.error("Failed to fetch random recipes:", error);
-      }
+    return {
+      store,
+      showModal,
+      handleRecipeCreated,
+      randomRecipes,
+      lastViewed,
+      fetchRandomRecipes
     };
-
-    return { store, showModal, handleRecipeCreated ,  randomRecipes, lastViewed, fetchRandomRecipes };
   }
 };
 </script>
@@ -109,4 +112,14 @@ export default {
   pointer-events: none;
   cursor: default;
 }
+.row > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-wrapper {
+  margin-top: -500px; /* Adjust how much you want to lift it */
+}
+
 </style>
