@@ -1,9 +1,10 @@
 <template>
-    <div class="container">
-      <div v-if="recipe">
+  <div
+    class="recipe-page"
+    v-if="recipe"
+    :style="{ backgroundImage: `url(${recipe.image})` }">
+      <div class="container">
         <div class="recipe-header mt-3 mb-4">
-          <b-button variant="primary" @click="showModal = true">+ Add Recipe</b-button>
-          <RecipeModal v-model="showModal" @recipe-created="handleRecipeCreated" />
           <h1>{{ recipe.title }}</h1>
           <img :src="recipe.image" class="center" />
           <!-- Favorite Button -->
@@ -63,32 +64,13 @@
             </div>
           </div>
         </div>
-        <!-- <pre>
-        {{ $route.params }}
-        {{ recipe }}
-      </pre
-        > -->
       </div>
-    </div>
-  </template>
+  </div>
+</template>
   
   <script>
-  import { ref } from 'vue';
-  import RecipeModal from "@/components/RecipeModal.vue";
 
   export default {
-    components: {
-      RecipeModal,
-    },
-    setup() {
-      const showModal = ref(false);
-
-      const handleRecipeCreated = () => {
-        showModal.value = false;
-      };
-
-      return { showModal, handleRecipeCreated };
-    },
     data() {
       return {
         recipe: null,
@@ -127,27 +109,6 @@
 
 
         this.likes = popularity;
-
-
-
-        // const _instructions = analyzedInstructions
-        //   .map((fstep) => {
-        //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-        //     return fstep.steps;
-        //   })
-        //   .reduce((a, b) => [...a, ...b], []);
-  
-        // this.recipe = {
-        //   _instructions,
-        //   _instructions,
-        //   analyzedInstructions,
-        //   extendedIngredients,
-        //   aggregateLikes,
-        //   readyInMinutes,
-        //   image,
-        //   title
-        // };
-  
         // Check if this recipe is already a favorite
         const favRes = await this.axios.get("/users/favorites");
         const favoriteIds = favRes.data.map(r => r.recipe_id || r.id);
@@ -242,8 +203,9 @@
   align-items: center;
   border-radius: 12px;
   padding: 4px 10px;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   transition: all 0.2s ease;
+  font-weight: bold;
 }
 
 .badge-label small {
@@ -262,6 +224,46 @@
   font-weight: 400;
 }
 
+.recipe-page {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  font-size: 2rem;
+  color: #111;
+}
+
+.recipe-body {
+  font-size: 1.1rem;
+  color: #222;
+  line-height: 1.6;
+}
+.recipe-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.6); 
+  z-index: 0;
+}
+
+.recipe-page > * {
+  position: relative;
+  z-index: 1;
+}
+.like-btn {
+  background: none;
+  border: none;
+  font-size: 1ץ7rem; 
+  font-weight: bold; 
+  cursor: pointer;
+  margin-left: 8px;
+  color: #000;
+}
+.like-btn:hover {
+  opacity: 0.7;
+}
   /* .recipe-header{
   
   } */

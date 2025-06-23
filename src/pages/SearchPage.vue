@@ -121,7 +121,6 @@ export default {
   setup() {
     const internalInstance = getCurrentInstance();
     const store = internalInstance.appContext.config.globalProperties.store;
-
     const showModal = ref(false);
     const searchQuery = ref("");
     const resultsLimit = ref("5");
@@ -133,6 +132,26 @@ export default {
     const searchError = ref(false);
     const hasSearched = ref(false);
 
+    if (store.username) {
+      const savedSearch = localStorage.getItem("lastSearch");
+      if (savedSearch) {
+        try {
+          const parsed = JSON.parse(savedSearch);
+          searchQuery.value = parsed.searchQuery || "";
+          resultsLimit.value = parsed.resultsLimit || "5";
+          selectedCuisine.value = parsed.selectedCuisine || "";
+          selectedDiet.value = parsed.selectedDiet || "";
+          selectedIntolerance.value = parsed.selectedIntolerance || "";
+          sortOption.value = parsed.sortOption || "";
+          searchResults.value = parsed.searchResults || [];
+          hasSearched.value = true;
+        } catch (err) {
+          console.warn("Failed to parse last search from localStorage:", err);
+        }
+      }
+    } else {
+      localStorage.removeItem("lastSearch");
+    }
     const handleRecipeCreated = () => {
       showModal.value = false;
     };
@@ -143,7 +162,6 @@ export default {
         return;
       }
       searchError.value = false;
-      hasSearched.value = true;
 
       try {
         const params = {
@@ -159,10 +177,28 @@ export default {
         );
 
         searchResults.value = response.data;
+        hasSearched.value = true;
+
+        if (store.username) {
+          localStorage.setItem("lastSearch", JSON.stringify({
+            searchQuery: searchQuery.value,
+            resultsLimit: resultsLimit.value,
+            selectedCuisine: selectedCuisine.value,
+            selectedDiet: selectedDiet.value,
+            selectedIntolerance: selectedIntolerance.value,
+            sortOption: sortOption.value,
+            searchResults: response.data
+          }));
+        }
+
       } catch (err) {
         console.error("Search failed", err);
+        searchResults.value = [];
+        hasSearched.value = true;
       }
     };
+
+
 
     const sortedResults = computed(() => {
       if (!sortOption.value || !searchResults.value.length) return searchResults.value;

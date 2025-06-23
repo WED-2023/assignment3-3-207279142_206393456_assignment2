@@ -104,6 +104,7 @@
       };
 
       const logout = () => {
+        localStorage.removeItem("lastSearch"); 
         store.logout();
         toast("Logout", "User logged out successfully", "success");
         router.push("/").catch(() => {});
