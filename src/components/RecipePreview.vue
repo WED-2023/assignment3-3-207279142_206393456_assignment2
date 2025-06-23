@@ -1,5 +1,12 @@
 <template>
   <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner }">
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="text-decoration-none text-dark full-link">
+      <div class="image-overlay">To view the recipe</div>
+    </router-link>
+
+    
     <div class="image-wrapper">
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
@@ -11,7 +18,6 @@
           class="card-img-top recipe-image"
           alt="Recipe image"
         />
-        <div class="image-overlay">To view the recipe</div>
       </router-link>
 
       <!-- Eye icon at top-right -->
@@ -31,17 +37,15 @@
       </button>
 
     </div>
-
-    <div class="card-body text-center">
+    <!-- Text overlay container --> 
+    <div class="text-overlay">
       <h5 class="card-title d-flex justify-content-center align-items-center gap-2">
         {{ recipe.title }}
       </h5>
-    </div>
 
-    <div class="card-body text-center pt-0">
       <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
 
-      <div class="diet-labels d-flex justify-content-center gap-3 mt-2">
+      <div class="diet-labels d-flex justify-content-center gap-3 mt-1">
         <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
           🥦 <small>Vegetarian</small>
         </span>
@@ -53,12 +57,11 @@
         </span>
       </div>
 
-      <p v-if="recipe.family_owner" class="card-text">
+      <p v-if="recipe.family_owner" class="card-text mt-1">
         Family Recipe by {{ recipe.family_owner }} ({{ recipe.family_event }})
       </p>
 
-      <!-- Like button -->
-      <button @click.stop="likeRecipe" class="like-btn">
+      <button @click.stop="likeRecipe" class="like-btn mt-1">
         👍 {{ likes }}
       </button>
     </div>
@@ -150,12 +153,16 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .image-wrapper {
-  height: 100px;
-}
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;}
 
 
 .card-body {
@@ -167,18 +174,23 @@ export default {
   line-height: 1.1;
 }
 .card-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: bold;
+  white-space: normal;  
+  text-align: center;
+  margin-bottom: 0.25rem;
 }
+
 
 .recipe-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
 }
+
 .image-wrapper:hover .recipe-image {
   transform: scale(1.03);
   opacity: 0.7;
@@ -189,20 +201,32 @@ export default {
 }
 .image-overlay {
   position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
+  top: 0;
+  left: 0;
   width: 100%;
-  text-align: center;
-  padding: 8px;
-  font-size: 0.9rem;
+  height: 100%; /* של התמונה בלבד */
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  z-index: 2;
+  transition: opacity 0.4s ease;
   pointer-events: none;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
 }
+
+
 .image-wrapper:hover .image-overlay {
   opacity: 1;
 }
+.card:hover .image-overlay {
+  opacity: 1;
+}
+
 .favorite-btn {
   background: none;
   border: none;
@@ -242,31 +266,35 @@ export default {
   color: inherit;
 }
 .diet-labels {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  flex-shrink: 1;
+  justify-content: center;
+  gap: 4px;
+  overflow-x: auto;
 }
 
+
 .badge-label {
-  display: flex;
-  align-items: center;
-  border-radius: 12px;
-  padding: 4px 10px;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  border-radius: 10px;
 }
+
 
 .badge-label small {
   margin-left: 5px;
 }
 
 .badge-label.active {
-  background-color: #e6f7e6;
+  background-color: #d9fdd3;
   color: #1b5e20;
   font-weight: 600;
 }
 
+
 .badge-label.inactive {
-  background-color: gray;
-  color: #f7f0f0;
+  background-color: #eee;
+  color: #777;
   font-weight: 400;
 }
 .like-btn {
@@ -275,7 +303,7 @@ export default {
   font-size: 1rem;
   cursor: pointer;
   margin-top: 8px;
-  color: gray;
+  color: black;
 }
 
 .like-btn:hover {
@@ -290,7 +318,7 @@ export default {
 .image-wrapper {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 240px;
   overflow: hidden;
 }
 
@@ -315,6 +343,16 @@ export default {
 }
 .viewed-icon-absolute.bi-eye-slash-fill {
   color: white;
+}
+.text-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px 6px;
+  text-align: center;
+  backdrop-filter: blur(3px);
+  border-top: 1px solid rgba(255,255,255,0.5);
 }
 
 

@@ -1,26 +1,22 @@
 <template>
     <div class="favorites-page">
-      <h1>My Favorite Recipes</h1>
-      <b-button variant="primary" @click="showModal = true">+ Add Recipe</b-button>
-      <RecipeModal v-model="showModal" @recipe-created="handleRecipeCreated" />
       <div v-if="loading">Loading favorites...</div>
       <div v-else-if="recipes.length === 0">
         You have no favorite recipes yet.
       </div>
-      <RecipePreviewList v-else title="My Favorites" :recipes="recipes" />
+      <!-- <RecipePreviewList v-else title="My Favorites" :recipes="recipes" /> -->
+      <RecipePreviewList v-else title="My Favorites" :recipes="recipes" :gridMode="true" />
 
     </div>
   </template>
   
   <script>
   import { ref, onMounted } from 'vue';
-  import RecipeModal from "@/components/RecipeModal.vue";
   import RecipePreviewList from "@/components/RecipePreviewList.vue";
 
   export default {
     name: 'MyFavoritesPage',
     components: {
-      RecipeModal,
       RecipePreviewList,
     },
     setup() {

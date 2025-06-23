@@ -1,11 +1,5 @@
 <template>
   <div class="my-recipes-page">
-    <h1>My Recipes</h1>
-
-    <!-- Button to open modal -->
-    <div class="text-end mb-3">
-      <button class="btn btn-success" @click="showModal = true">Add Recipe</button>
-    </div>
     <!-- Recipe creation modal -->
 
     <RecipeModal v-model="showModal" @recipe-created="handleSuccess" />
@@ -15,27 +9,24 @@
     <div v-else-if="recipes.length === 0">
       You haven't created any recipes yet.
     </div>
-    <RecipePreviewList v-else title="My Recipes" :recipes="recipes" />
+    <RecipePreviewList v-else title="My Recipes" :recipes="recipes" :gridMode="true" />
 
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import RecipeModal from "@/components/RecipeModal.vue";
 import RecipePreviewList from "@/components/RecipePreviewList.vue";
 
 export default {
   name: "MyRecipes",
   components: {
-    RecipeModal,
     RecipePreviewList,
 
   },
   setup() {
     const recipes = ref([]);
     const loading = ref(true);
-    const showModal = ref(false);
 
     // Load recipes from backend
     const loadRecipes = async () => {
@@ -57,15 +48,9 @@ export default {
       }
     };
 
-    // When recipe is added successfully, hide modal and refresh
-    const handleSuccess = () => {
-      showModal.value = false;
-      loadRecipes();
-    };
-
     onMounted(loadRecipes);
 
-    return { recipes, loading, showModal, handleSuccess };
+    return { recipes, loading };
   },
 };
 </script>

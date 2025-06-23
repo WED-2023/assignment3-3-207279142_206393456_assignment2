@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <h1 class="title">Main Page</h1>
 
     <!-- Grid row: Left = recipes, Right = login / last viewed -->
     <div class="row">

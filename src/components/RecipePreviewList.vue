@@ -1,10 +1,20 @@
 <template>
   <b-container>
-    <h3>
-      {{ title }}:
+    <h2 class="list-title">
+      {{ title }}
       <slot></slot>
-    </h3>
-    <div class="grid-recipes">
+    </h2>
+    <div v-if="gridMode" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      <div class="col" v-for="r in recipes" :key="r.id">
+        <RecipePreview
+          class="recipePreview"
+          :recipe="r"
+          :was-viewed="r.wasViewed"
+        />
+      </div>
+    </div>
+
+    <div v-else class="grid-recipes">
       <RecipePreview
         v-for="r in recipes"
         :key="r.id"
@@ -13,6 +23,7 @@
         :was-viewed="r.wasViewed"
       />
     </div>
+
 
   </b-container>
 </template>
@@ -29,6 +40,11 @@ export default {
       type: String,
       required: true
     },
+    gridMode: {
+      type: Boolean,
+      default: false,
+    },
+
     recipes: {
       type: Array,
       required: true,
@@ -59,5 +75,28 @@ export default {
 .recipePreview {
   aspect-ratio: 1 / 1;
 }
+.list-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  text-align: center;
+  color: #000000;
+  margin: 40px 0 30px;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.list-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, #9ae0f1, #d6a3e6);
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+
 
 </style>

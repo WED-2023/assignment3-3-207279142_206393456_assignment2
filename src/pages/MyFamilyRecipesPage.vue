@@ -1,12 +1,5 @@
 <template>
-    <div class="my-family-page container">
-      <h1>My Family Recipes</h1>
-  
-      <!-- Add Recipe button -->
-      <div v-if="store.username" class="text-end mb-3">
-        <b-button variant="success" @click="showModal = true">+ Add Family Recipe</b-button>
-        <RecipeModal v-model="showModal" @recipe-created="handleRecipeCreated" />
-      </div>
+    <div class="my-family-page container">  
   
       <div v-if="loading">Loading...</div>
   
@@ -14,19 +7,19 @@
         v-else
         title="Family Recipes"
         :recipes="recipes"
+        :gridMode="true"
       />
+
     </div>
   </template>
   
   <script>
   import { ref, onMounted, getCurrentInstance } from "vue";
-  import RecipeModal from "@/components/RecipeModal.vue";
   import RecipePreviewList from "@/components/RecipePreviewList.vue";
   
   export default {
     name: "MyFamilyPage",
     components: {
-      RecipeModal,
       RecipePreviewList,
     },
     setup() {
@@ -35,7 +28,6 @@
   
       const recipes = ref([]);
       const loading = ref(true);
-      const showModal = ref(false);
   
       const loadFamilyRecipes = async () => {
         try {
@@ -52,14 +44,10 @@
         }
       };
   
-      const handleRecipeCreated = () => {
-        showModal.value = false;
-        loadFamilyRecipes();
-      };
   
       onMounted(loadFamilyRecipes);
   
-      return { store, recipes, loading, showModal, handleRecipeCreated };
+      return { store, recipes, loading};
     },
   };
   </script>

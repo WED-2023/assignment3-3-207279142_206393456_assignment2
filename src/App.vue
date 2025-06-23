@@ -76,7 +76,7 @@ export default {
 }
 
 #app {
-  background-color: #fdf3ee; 
+  background-color: #fbfbfb; 
   min-height: 100vh;
   padding-bottom: 20px;
 }
