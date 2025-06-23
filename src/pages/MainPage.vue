@@ -30,24 +30,40 @@
       </div>
     </div>
 
-    <!--massage for guest -->
-    <div v-else class="text-center mt-5">
-      <h4>Please log in to view your homepage</h4>
-      <router-link :to="{ name: 'login' }">
-        <button class="btn btn-primary mt-3">Login</button>
-      </router-link>
+    <!-- Guest view: left = random, right = login -->
+    <div v-else class="container homepage-container">
+      <div class="row justify-content-center">
+        
+        <!-- Random Recipes (left) -->
+        <div class="col-12 col-md-6 mb-4">
+          <RecipePreviewList
+            title="Random Recipes"
+            :recipes="randomRecipes"
+            class="preview-home"
+          />
+        </div>
+
+        <!-- Login form (right) -->
+        <div class="col-12 col-md-6 d-flex justify-content-center mb-4">
+          <InlineLogin />
+        </div>
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
 import { onMounted, ref, getCurrentInstance } from 'vue';
-import RecipePreviewList from "../components/RecipePreviewList.vue";
 import axios from 'axios';
+import RecipePreviewList from "../components/RecipePreviewList.vue";
+import InlineLogin from "@/components/InlineLogin.vue";
+
 
 export default {
   components: {
     RecipePreviewList,
+    InlineLogin
   },
   setup() {
     const internalInstance = getCurrentInstance();
