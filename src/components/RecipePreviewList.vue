@@ -18,7 +18,7 @@
       <RecipePreview
         v-for="r in recipes"
         :key="r.id"
-        class="recipePreview"
+        :class="['recipePreview', $attrs.class]"
         :recipe="r"
         :was-viewed="r.wasViewed"
       />
@@ -70,11 +70,6 @@ export default {
   padding-right: 5px;
 }
 
-
-
-.recipePreview {
-  aspect-ratio: 1 / 1;
-}
 .list-title {
   font-size: 2.6rem;
   font-weight: 800;
@@ -95,6 +90,11 @@ export default {
   background: linear-gradient(to right, #9ae0f1, #d6a3e6);
   margin: 12px auto 0;
   border-radius: 2px;
+}
+.recipePreview.preview-home {
+  width: 100%;
+  max-width: 1000px; 
+  margin: auto;
 }
 
 

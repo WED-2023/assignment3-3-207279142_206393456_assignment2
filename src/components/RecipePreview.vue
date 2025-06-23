@@ -188,6 +188,8 @@ export default {
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 
 }
 
@@ -204,7 +206,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* של התמונה בלבד */
+  height: 100%; 
   background: rgba(0, 0, 0, 0.45);
   color: #fff;
   display: flex;
@@ -355,5 +357,21 @@ export default {
   border-top: 1px solid rgba(255,255,255,0.5);
 }
 
+.recipePreview.preview-home .card-title {
+  font-size: clamp(1.4rem, 1vw, 2rem);
+}
+
+.recipePreview.preview-home .card-text {
+  font-size: clamp(1.1rem, 2.2vw, 1rem);
+}
+
+.recipePreview.preview-home .badge-label {
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  padding: 6px 10px;
+}
+
+.recipePreview.preview-home .badge-label small {
+  font-size: clamp(0.8rem, 1.3vw, 1rem);
+}
 
 </style>
