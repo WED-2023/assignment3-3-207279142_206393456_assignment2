@@ -74,4 +74,10 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+#app {
+  background-color: #fdf3ee; 
+  min-height: 100vh;
+  padding-bottom: 20px;
+}
 </style>
