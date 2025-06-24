@@ -212,16 +212,18 @@ export default {
   color: #000000;
   margin: 40px 0 30px;
   position: relative;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 1px;
-  text-transform: uppercase;
+  text-transform: none;
+  font-family: 'Pacifico', cursive;
+
 }
 .list-title::after {
   content: '';
   display: block;
   width: 100px;
   height: 4px;
-  background: linear-gradient(to right, #9ae0f1, #d6a3e6);
+  background: linear-gradient(to right, #9ae0f1, #b3efe5);
   margin: 12px auto 0;
   border-radius: 2px;
 }

@@ -5,7 +5,7 @@
     :style="{ backgroundImage: `url(${recipe.image})` }">
       <div class="container">
         <div class="recipe-header mt-3 mb-4">
-          <h1>{{ recipe.title }}</h1>
+          <h1 class="list-title">{{ recipe.title }}</h1>
           <img :src="recipe.image" class="center" />
           <!-- Favorite Button -->
           <button @click="toggleFavorite" class="favorite-btn">
@@ -43,9 +43,6 @@
                     🌾 <small>Gluten Free</small>
                   </span>
                 </div>
-
-                <!-- <div>Likes: {{ recipe.aggregateLikes }} likes</div> -->
-                <div>Likes: {{ likes }} likes</div>
 
               </div>
               Ingredients:
@@ -251,11 +248,14 @@
 .recipe-page > * {
   position: relative;
   z-index: 1;
+  /* font-family: 'Pacifico', cursive; */
+  font-weight: bold; 
+
 }
 .like-btn {
   background: none;
   border: none;
-  font-size: 1ץ7rem; 
+  font-size:1.7rem; 
   font-weight: bold; 
   cursor: pointer;
   margin-left: 8px;
@@ -264,8 +264,16 @@
 .like-btn:hover {
   opacity: 0.7;
 }
-  /* .recipe-header{
-  
-  } */
+.list-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  text-align: center;
+  color: #000000;
+  margin: 40px 0 30px;
+  position: relative;
+  font-family: 'Pacifico', cursive;
+  letter-spacing: 1px;
+  text-transform: none;
+}
   </style>
   

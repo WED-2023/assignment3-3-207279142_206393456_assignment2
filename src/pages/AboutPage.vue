@@ -1,6 +1,6 @@
 <template>
   <div class="about-page container mt-4">
-    <h1>About</h1>
+    <h1 class="list-title">About</h1>
     <p>
       This recipe application was built as part of a comprehensive web development course project.
       It provides users with a complete platform to manage their culinary interests. Users can search for a wide variety of recipes using keywords or filters,
@@ -16,7 +16,7 @@
       managing favorites, and tracking recently viewed items.
     </p>
 
-    <h2 class="mt-5">Previous Projects</h2>
+    <h2 class="list-title">Previous Projects</h2>
     <div class="row g-3 mt-3">
       <div class="col-md-4" v-for="project in projects" :key="project.title">
         <ProjectCard
@@ -75,5 +75,31 @@ export default {
 <style scoped>
 .about-page {
   line-height: 1.6;
+  
 }
+
+.list-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  text-align: center;
+  color: #000000;
+  margin: 40px 0 30px;
+  position: relative;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  letter-spacing: 1px;
+  text-transform: none;
+  font-family: 'Pacifico', cursive;
+
+}
+
+.list-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, #9ae0f1, #b3efe5);
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
 </style>

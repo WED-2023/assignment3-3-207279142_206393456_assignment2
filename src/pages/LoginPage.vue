@@ -1,6 +1,6 @@
 <template>
   <div class="login-page">
-    <h1>Login</h1>
+    <h1 class="list-title">Login</h1>
 
     <!-- Show login error if exists -->
     <div v-if="loginError" class="alert alert-danger">
@@ -114,4 +114,28 @@ export default {
   max-width: 400px;
   margin: auto;
 }
+.list-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  text-align: center;
+  color: #000000;
+  margin: 40px 0 30px;
+  position: relative;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  letter-spacing: 1px;
+  text-transform: none;
+  font-family: 'Pacifico', cursive;
+
+}
+
+.list-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, #9ae0f1, #b3efe5);
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
 </style>

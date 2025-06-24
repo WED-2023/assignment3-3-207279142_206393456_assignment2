@@ -52,13 +52,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap'); // ⬅ הוסיפי את זה למעלה
 @import "@/scss/form-style.scss";
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif,'Pacifico', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #1a3d60;
   min-height: 100vh;
 }
 
@@ -68,15 +69,15 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #1a3d60;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #1a3d60;
 }
 
 #app {
-  background-color: #fbfbfb; 
+  background-color: #ffffff; 
   min-height: 100vh;
   padding-bottom: 20px;
 }

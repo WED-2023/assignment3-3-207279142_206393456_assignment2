@@ -179,6 +179,7 @@ export default {
   white-space: normal;  
   text-align: center;
   margin-bottom: 0.25rem;
+  
 }
 
 

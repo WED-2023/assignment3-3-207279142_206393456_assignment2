@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg custom-navbar px-4 py-2">
     <router-link class="navbar-brand fw-bold text-white" :to="{ name: 'main' }">
-      <i class="bi bi-egg-fried me-2"></i> Vue Recipes
+      <i class="bi bi-egg-fried me-2"></i> Home
     </router-link>
 
     <button
@@ -34,9 +34,10 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <!-- Add Recipe Button -->
         <li v-if="store.username" class="nav-item d-flex align-items-center me-2">
-          <b-button variant="outline-light" size="sm" class="me-2" @click="showAddModal = true">
+          <b-button class="btn-add-recipe me-2" @click="showAddModal = true">
             <i class="bi bi-plus-circle me-1"></i> Add Recipe
           </b-button>
+
 
         </li>
         <!-- User Dropdown + Logout -->
@@ -59,7 +60,7 @@
             </ul>
           </div>
 
-          <button class="btn btn-outline-danger btn-sm" @click="logout">Logout</button>
+          <button class="btn btn-outline-danger btn-sm btn-logout" @click="logout">Logout</button>
         </li>
         <!-- Guest -->
         <li v-else class="nav-item d-flex align-items-center gap-2">
@@ -118,8 +119,8 @@
 <style scoped>
 
 .custom-navbar {
-  background-color: #6eaaee;
-  box-shadow: 0 2px 10px rgba(41, 112, 245, 0.984);
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(134, 229, 218, 0.984);
   border-radius: 0 0 12px 12px;
   position: sticky;
   top: 0;
@@ -131,12 +132,17 @@
 
 
 .navbar .nav-link {
-  color: #eff6f2 !important;
+  color: #1a3d60 !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: 'Pacifico', cursive;
+
 }
 
 .navbar .nav-link:hover {
-  color: #010808 !important;
+  font-size: 1.6rem;
 }
+
 .navbar .btn {
   font-weight: bold;
 }
@@ -152,7 +158,60 @@
   height: 100px;
   object-fit: contain;
 }
+.navbar-brand {
+  color: #1a3d60 !important;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.7rem;
+  font-family: 'Pacifico', cursive;
+  transition: background-color 0.3s ease;
+}
+.navbar-brand:hover {
+  font-size: 1.8rem;
+  
+}
+.dropdown-menu .dropdown-item {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #1a3d60 !important;
+  font-family: 'Pacifico', cursive;
+
+}
+
+.btn-add-recipe {
+  background-color: white;
+  font-size: 1.2rem;
+  color: #1a3d60;
+  font-weight: bold;
+  font-family: 'Pacifico', cursive;
 
 
+}
+.btn-add-recipe:hover {
+  background-color:  #1a3d60;
+  color: #ffffff;
+  border: 2px solid ;
+  border-radius: 8px;
+}
+
+
+.btn-logout {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'Pacifico', cursive;
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: #a01212;
+  border: 2px solid #a01212;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color:  #a01212;
+  color: #ffffff;
+  border-color: #a01212;
+}
 </style>
   
