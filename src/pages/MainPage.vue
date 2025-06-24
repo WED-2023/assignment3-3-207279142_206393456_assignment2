@@ -12,11 +12,6 @@
             @refresh-random="fetchRandomRecipes"
             :showRefresh="true"
           />
-
-
-          <div class="text-center mt-2">
-            <button class="btn btn-outline-primary" @click="fetchRandomRecipes">More</button>
-          </div>
         </div>
 
         <!-- Right side: Last Viewed -->

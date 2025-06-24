@@ -1,12 +1,6 @@
 <template>
-  <div class="container">
-    <h1 class="title">Search Page</h1>
-
-    <!-- Show "Add Recipe" button and modal only if user is logged in -->
-    <div v-if="store.username" class="text-end mb-3">
-      <b-button variant="primary" @click="showModal = true">+ Add Recipe</b-button>
-      <RecipeModal v-model="showModal" @recipe-created="handleRecipeCreated" />
-    </div>
+  <div class="search-page">
+    <h1 class="list-title">Search Page</h1>
 
     <!-- Search row (input only) -->
     <div class="mb-3">
@@ -104,24 +98,23 @@
       v-if="searchResults.length"
       title="Search Results"
       :recipes="sortedResults"
+      :gridMode="true"
+
     />
   </div>
 </template>
 
 <script>
 import { ref, computed, getCurrentInstance } from "vue";
-import RecipeModal from "@/components/RecipeModal.vue";
 import RecipePreviewList from "@/components/RecipePreviewList.vue";
 
 export default {
   components: {
-    RecipeModal,
     RecipePreviewList
   },
   setup() {
     const internalInstance = getCurrentInstance();
     const store = internalInstance.appContext.config.globalProperties.store;
-    const showModal = ref(false);
     const searchQuery = ref("");
     const resultsLimit = ref("5");
     const selectedCuisine = ref("");
@@ -152,9 +145,6 @@ export default {
     } else {
       localStorage.removeItem("lastSearch");
     }
-    const handleRecipeCreated = () => {
-      showModal.value = false;
-    };
 
     const searchRecipes = async () => {
       if (!searchQuery.value.trim()) {
@@ -215,12 +205,10 @@ export default {
 
     return {
       store,
-      showModal,
       searchQuery,
       resultsLimit,
       searchResults,
       searchRecipes,
-      handleRecipeCreated,
       selectedCuisine,
       selectedDiet,
       selectedIntolerance,
@@ -232,3 +220,33 @@ export default {
   }
 };
 </script>
+
+<style>
+.list-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  text-align: center;
+  color: #000;
+  margin: 40px 0 30px;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.list-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, #9ae0f1, #d6a3e6);
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+.search-page {
+  max-width: 800px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+</style>
