@@ -1,55 +1,58 @@
+
 <template>
   <div>
     <div v-if="store.username" class="container homepage-container">
       <div class="row justify-content-center">
-        <!-- randome recipes - left side-->
-
+        <!-- Left side: Random Recipes -->
         <div class="col-12 col-md-6 mb-4">
           <RecipePreviewList
             title="Random Recipes"
             :recipes="randomRecipes"
             class="preview-home"
-
+            @refresh-random="fetchRandomRecipes"
+            :showRefresh="true"
           />
+
 
           <div class="text-center mt-2">
             <button class="btn btn-outline-primary" @click="fetchRandomRecipes">More</button>
           </div>
         </div>
 
-        <!-- last viewed - right side-->
+        <!-- Right side: Last Viewed -->
         <div class="col-12 col-md-6 mb-4">
           <RecipePreviewList
             title="Last Viewed Recipes"
             :recipes="lastViewed"
             class="preview-home"
-
           />
-
         </div>
       </div>
     </div>
 
-    <!-- Guest view: left = random, right = login -->
+    <!-- Guest view -->
     <div v-else class="container homepage-container">
       <div class="row justify-content-center">
-        
-        <!-- Random Recipes (left) -->
+        <!-- Left: Random Recipes -->
         <div class="col-12 col-md-6 mb-4">
           <RecipePreviewList
             title="Random Recipes"
             :recipes="randomRecipes"
             class="preview-home"
+            @refresh-random="fetchRandomRecipes"
+            :showRefresh="true"
           />
+
         </div>
 
-        <!-- Login form (right) -->
-        <div class="col-12 col-md-6 d-flex justify-content-center mb-4">
-          <InlineLogin />
+        <!-- Right: Login Form -->
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-start mb-4">
+          <div style="width: 100%;">
+            <InlineLogin />
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -58,7 +61,6 @@ import { onMounted, ref, getCurrentInstance } from 'vue';
 import axios from 'axios';
 import RecipePreviewList from "../components/RecipePreviewList.vue";
 import InlineLogin from "@/components/InlineLogin.vue";
-
 
 export default {
   components: {
@@ -72,12 +74,7 @@ export default {
     const randomRecipes = ref([]);
     const lastViewed = ref([]);
 
-    const handleRecipeCreated = () => {
-      showModal.value = false;
-    };
-
     const fetchRandomRecipes = async () => {
-
       try {
         const response = await axios.get("/recipes/random", {
           withCredentials: true
@@ -86,6 +83,10 @@ export default {
       } catch (error) {
         console.error("Failed to fetch random recipes:", error);
       }
+    };
+
+    const handleRecipeCreated = () => {
+      showModal.value = false;
     };
 
     onMounted(async () => {
@@ -132,9 +133,12 @@ export default {
   justify-content: space-between;
 }
 
-.login-wrapper {
-  margin-top: -500px; /* Adjust how much you want to lift it */
+button.btn-link.fs-3 {
+  text-decoration: none;
+  font-weight: bold;
 }
-
-
+button.btn-link.fs-3:hover {
+  color: #555;
+  transform: scale(1.1);
+}
 </style>

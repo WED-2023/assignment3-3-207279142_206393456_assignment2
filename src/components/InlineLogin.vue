@@ -99,25 +99,18 @@
   
 <style scoped>
 
-    /* .login-box {
-    max-width: 400px;
+  .login-box {
+    width: 100%;
+    min-height: 340px; 
+    margin-top: -100px;  
+    padding: 20px 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    } */
-
-    .login-box {
-        max-width: 400px;
-        min-height: 340px; 
-        margin-top: 100px;  
-        padding: 20px 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border-radius: 10px;
-        background-color: #fff;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    }
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
 
 </style>
   
