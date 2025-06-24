@@ -252,6 +252,8 @@ export default {
   max-width: 800px;
   margin: auto;
   padding: 0 15px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+
 }
 
 </style>

@@ -113,6 +113,7 @@ export default {
 .login-page {
   max-width: 400px;
   margin: auto;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .list-title {
   font-size: 2.6rem;

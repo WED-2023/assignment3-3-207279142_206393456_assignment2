@@ -136,4 +136,7 @@ button.btn-link.fs-3:hover {
   color: #555;
   transform: scale(1.1);
 }
+.homepage-container {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
 </style>

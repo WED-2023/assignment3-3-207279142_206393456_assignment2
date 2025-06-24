@@ -179,9 +179,13 @@
   };
   </script>
   
-  <style scoped>
+<style scoped>
   .mb-2 {
     margin-bottom: 1rem;
   }
+  form {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  }
+
   </style>
   

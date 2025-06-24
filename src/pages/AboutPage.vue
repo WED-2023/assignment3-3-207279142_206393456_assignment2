@@ -75,7 +75,6 @@ export default {
 <style scoped>
 .about-page {
   line-height: 1.6;
-  
 }
 
 .list-title {

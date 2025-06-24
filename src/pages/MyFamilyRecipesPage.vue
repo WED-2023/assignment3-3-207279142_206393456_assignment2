@@ -56,6 +56,8 @@
   .my-family-page {
     max-width: 800px;
     margin: auto;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+
   }
   </style>
   

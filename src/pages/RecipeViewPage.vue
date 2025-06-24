@@ -229,12 +229,15 @@
   overflow: hidden;
   font-size: 2rem;
   color: #111;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+
 }
 
 .recipe-body {
   font-size: 1.1rem;
   color: #222;
   line-height: 1.6;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 .recipe-page::before {
   content: "";

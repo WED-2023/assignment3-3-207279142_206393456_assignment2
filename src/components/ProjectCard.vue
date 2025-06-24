@@ -42,7 +42,9 @@ export default {
   border-radius: 1rem;
   overflow: hidden;
   transition: transform 0.2s ease;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
 }
+
 .project-card:hover {
   transform: scale(1.01);
 }

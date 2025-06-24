@@ -256,6 +256,8 @@ export default {
 }
 .recipes-wrapper {
   position: relative;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+
 }
 
 </style>

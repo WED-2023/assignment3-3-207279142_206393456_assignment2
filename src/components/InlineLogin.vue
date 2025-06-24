@@ -110,7 +110,8 @@
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  }
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+}
 
 </style>
   

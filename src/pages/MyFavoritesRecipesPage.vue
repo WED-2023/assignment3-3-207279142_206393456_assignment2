@@ -53,6 +53,8 @@
   .favorites-page {
     max-width: 800px;
     margin: auto;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+
   }
   .recipe-card {
     border: 1px solid #ccc;

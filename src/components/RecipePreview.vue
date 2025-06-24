@@ -156,6 +156,8 @@ export default {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+
 }
 
 .image-wrapper {

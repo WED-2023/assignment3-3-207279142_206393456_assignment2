@@ -128,6 +128,8 @@
   min-height: 90px; 
   padding-top: 10px;
   padding-bottom: 10px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+
 }
 
 
