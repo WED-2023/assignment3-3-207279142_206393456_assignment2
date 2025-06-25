@@ -7,7 +7,9 @@
   
       <!-- Image -->
       <b-form-group label="Image URL:" label-for="image">
-        <b-form-input id="image" v-model="form.image" />
+        <!-- <b-form-input id="image" v-model="form.image" required type="url" placeholder="https://example.com/image.jpg"/> -->
+        <b-form-input id="image" v-model="form.image" required placeholder="e.g. image.png" />
+
       </b-form-group>
   
       <!-- Time -->
@@ -38,7 +40,9 @@
           v-model.number="form.servings"
           type="number"
           min="1"
+          required
         />
+
       </b-form-group>
   
       <!-- Ingredients -->
@@ -141,18 +145,36 @@
             this.form.ingredients.splice(index, 1);
         },
         async submitForm() {
-            if (this.form.ingredients.length === 0) {
-                this.$root.toast("Missing Ingredients", "Please add at least one ingredient.", "danger");
-                return;
+          if (this.form.ingredients.length === 0) {
+              this.$root.toast("Missing Ingredients", "Please add at least one ingredient.", "danger");
+              return;
+          }
+          const imageRegex = /\.(jpeg|jpg|png|gif|bmp|webp)$/i;
+          if (!this.form.image || !imageRegex.test(this.form.image)) {
+            this.$root.toast("Invalid Image", "Please provide an image URL ending with .jpg, .png, etc.", "danger");
+            return;
+          }
+
+          if (this.form.isFamily) {
+            if (!this.form.family_owner || !this.form.event) {
+              this.$root.toast("Missing Family Info", "Please fill in both Family Owner and Event fields.", "danger");
+              return;
             }
-            try {
-                await this.$root.axios.post("/users/recipes", this.form);
-                this.$root.toast("Success", "Recipe created!", "success");
-                this.$emit("submitted"); // emit success to parent
-            } catch (error) {
-                console.error("Failed to create recipe", error);
-                this.$root.toast("Error", "Failed to create recipe", "danger");
-            }
+          }
+          if (!this.form.servings || this.form.servings < 1) {
+            this.$root.toast("Missing Servings", "Please enter the number of servings (minimum 1).", "danger");
+            return;
+          }
+
+          try {
+            await this.$root.axios.post("/users/recipes", this.form);
+            this.$root.toast("Success", "Recipe created!", "success");
+            this.reset();
+            this.$emit("submitted"); // emit success to parent
+          } catch (error) {
+            console.error("Failed to create recipe", error);
+            this.$root.toast("Error", "Failed to create recipe", "danger");
+          }
         },
         reset() {
             this.form = {

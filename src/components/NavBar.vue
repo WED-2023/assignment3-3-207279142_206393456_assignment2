@@ -54,9 +54,9 @@
               <i class="bi bi-person-circle"></i> Hello, {{ store.username }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><router-link class="dropdown-item" :to="{ name: 'favorites' }">Favorites</router-link></li>
-              <li><router-link class="dropdown-item" :to="{ name: 'myRecipes' }">My Recipes</router-link></li>
-              <li><router-link class="dropdown-item" :to="{ name: 'myFamily' }">My Family</router-link></li>
+              <li><router-link class="dropdown-item" :class="{ activeDropdown: $route.name === 'favorites' }" :to="{ name: 'favorites' }">Favorites</router-link></li>
+              <li><router-link class="dropdown-item" :class="{ activeDropdown: $route.name === 'myRecipes' }" :to="{ name: 'myRecipes' }">My Recipes</router-link></li>
+              <li><router-link class="dropdown-item" :class="{ activeDropdown: $route.name === 'myFamily' }" :to="{ name: 'myFamily' }">My Family</router-link></li>
             </ul>
           </div>
 
@@ -179,6 +179,18 @@
   color: #1a3d60 !important;
   font-family: 'Pacifico', cursive;
 
+}
+.activeDropdown {
+  background-color: #c6f1ff !important;
+  border-radius: 8px;
+}
+.router-link-active.dropdown-item {
+  background-color: #c6f1ff;
+  border-radius: 8px;
+}
+
+.dropdown-item:hover {
+  background-color: #e2f7ff;
 }
 
 .btn-add-recipe {

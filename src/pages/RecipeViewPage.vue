@@ -54,9 +54,9 @@
             <div class="wrapped">
               Instructions:
               <ol>
-                <li v-for="(step, index) in recipe.instructions" :key="index" v-html="step"></li>
-
-
+                <li v-for="(step, index) in cleanInstructions" :key="index">
+                  {{ step }}
+                </li>
               </ol>
             </div>
           </div>
@@ -158,7 +158,29 @@
         }
       }
 
+    },
+    computed: {
+      cleanInstructions() {
+        if (!this.recipe?.instructions) return [];
+
+        const rawText = Array.isArray(this.recipe.instructions)
+          ? this.recipe.instructions.join(' ')
+          : this.recipe.instructions;
+
+        const normalized = rawText
+          .replace(/\r\n|\r/g, '\n')                         // Normalize CRLF
+          .replace(/([.?!])(?=\S)/g, "$1 ")                  // Add space if missing after punctuation
+          .replace(/([.?!])\s*\n*/g, "$1\n");                // Replace punctuation + whitespace/newlines with single newline
+
+        return normalized
+          .split('\n')                                       // Split into lines
+          .map(line => line.replace(/<\/?[^>]+(>|$)/g, ''))  // Remove HTML tags
+          .map(line => line.replace(/^\s*\d+[).]?\s*/, ''))  // Remove leading numbering
+          .map(line => line.trim())                         // Trim whitespace
+          .filter(line => line.length > 1);                 // Filter out lines with only a single character
+      }
     }
+
   };
   </script>
     
