@@ -7,7 +7,6 @@
         'family-preview-size': recipe.family_owner
       }"
       :style="recipe.family_owner && recipe.image ? {
-        backgroundImage: 'url(' + recipe.image + ')',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
@@ -26,7 +25,7 @@
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
         class="text-decoration-none text-dark">
         <img
-          v-if="recipe.image && !recipe.family_owner"
+          v-if="recipe.image"
           :src="recipe.image"
           alt="Recipe image"
           class="recipe-image"
@@ -475,16 +474,21 @@ export default {
 .family-extra li {
   margin-bottom: 6px;
 }
-
 .family-preview .card {
-  width: 100%;
-  max-width: 3000px;
-  min-height: 2000px;
-  background-color: rgba(255,255,255,0.9);
-  border: 3px solid #333;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-width: 600px;
+  min-height: 550px;
+}
+.family-preview .image-wrapper {
+  height: 300px;
+}
+.family-preview .card-title {
+  font-size: 1.6rem;
+}
+.family-preview .card-text {
+  font-size: 1.2rem;
+}
+.family-preview .family-extra {
+  font-size: 1rem;
 }
 
 .family-recipe .image-wrapper {
