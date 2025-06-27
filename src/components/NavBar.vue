@@ -3,7 +3,7 @@
     <router-link class="navbar-brand fw-bold text-white" :to="{ name: 'main' }">
       <i class="bi bi-egg-fried me-2"></i> Home
     </router-link>
-
+<!-- 
     <button
       class="navbar-toggler text-white"
       type="button"
@@ -14,6 +14,14 @@
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <button
+      class="navbar-toggler text-white"
+      type="button"
+      @click="toggleNavbar"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Center image -->
@@ -21,13 +29,15 @@
       <img src="/assets/grandma-logo.png" alt="Grandma Recipes" class="navbar-grandma-img">
     </div>
 
-    <div class="collapse navbar-collapse" id="navbarContent">
+    <!-- <div class="collapse navbar-collapse" id="navbarContent"> -->
+      <div class="collapse navbar-collapse" id="navbarContent" ref="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <router-link class="nav-link text-white" :to="{ name: 'search' }">Search</router-link>
+          <router-link class="nav-link text-white" :to="{ name: 'search' }" @click="toggleNavbar">Search
+          </router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link text-white" :to="{ name: 'about' }">About</router-link>
+          <router-link class="nav-link text-white" :to="{ name: 'about' }" @click="toggleNavbar">About</router-link>
         </li>
       </ul>
 
@@ -37,8 +47,10 @@
           <b-button class="btn-add-recipe me-2" @click="showAddModal = true">
             <i class="bi bi-plus-circle me-1"></i> Add Recipe
           </b-button>
-
-
+        <RecipeModal
+          v-model="showAddModal"
+          @recipe-created="handleGlobalRecipeCreated"
+        />
         </li>
         <!-- User Dropdown + Logout -->
         <li v-if="store.username" class="nav-item dropdown d-flex align-items-center gap-3">
@@ -63,19 +75,18 @@
           <button class="btn btn-outline-danger btn-sm btn-logout" @click="logout">Logout</button>
         </li>
         <!-- Guest -->
-        <li v-else class="nav-item d-flex align-items-center gap-2">
-          <span class="text-light">Guest:</span>
-          <router-link class="nav-link text-white" :to="{ name: 'register' }">Register</router-link>
-          <router-link class="nav-link text-white" :to="{ name: 'login' }">Login</router-link>
+        <li v-else class="nav-item d-flex align-items-center gap-3">
+          <span class="nav-link text-dark d-flex align-items-center gap-2">
+            <i class="bi bi-person-circle"></i> Hello, Guest
+          </span>
+          <router-link class="nav-link text-white" :to="{ name: 'register' }" @click="toggleNavbar">Register</router-link>
+          <router-link class="nav-link text-white" :to="{ name: 'login' }" @click="toggleNavbar">Login</router-link>
         </li>
 
       </ul>
     </div>
   </nav>
-  <RecipeModal
-    v-model="showAddModal"
-    @recipe-created="handleGlobalRecipeCreated"
-  />
+
 
 </template>
 
@@ -95,9 +106,19 @@
     setup() {
       const { appContext } = getCurrentInstance();
       const store = appContext.config.globalProperties.store;
+
       const toast = appContext.config.globalProperties.toast;
       const router = window.router;
       const showAddModal = ref(false);
+      const navbarCollapse = ref(null);
+
+      const toggleNavbar = () => {
+        if (navbarCollapse.value.classList.contains('show')) {
+          navbarCollapse.value.classList.remove('show');
+        } else {
+          navbarCollapse.value.classList.add('show');
+        }
+      };
 
       const handleGlobalRecipeCreated = () => {
         showAddModal.value = false;
@@ -111,7 +132,7 @@
         router.push("/").catch(() => {});
       };
   
-      return { store, logout, showAddModal, handleGlobalRecipeCreated };
+      return { store, logout, showAddModal, handleGlobalRecipeCreated,navbarCollapse,toggleNavbar };
     }
   };
 </script>

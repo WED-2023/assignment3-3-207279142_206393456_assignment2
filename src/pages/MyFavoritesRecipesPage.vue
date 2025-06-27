@@ -34,8 +34,11 @@
           console.log("Loaded favorites:", response.data); // ← מוסיפים את זה
           recipes.value = response.data.map(r => ({
             ...r,
-            id: r.recipe_id || r.id // ← Ensure the ID is consistent
+            id: r.recipe_id || r.id,
+            ingredients: r.ingredients ?? [],
+            instructions: r.instructions ?? ""
           }));
+
         } catch (err) {
           console.error("Failed to load favorites:", err);
           window.toast("Failed to load favorite recipes", err.response?.data?.message || "Unknown error", "danger");

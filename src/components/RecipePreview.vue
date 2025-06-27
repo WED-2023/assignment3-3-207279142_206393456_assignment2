@@ -1,5 +1,19 @@
 <template>
-  <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner }">
+  <!-- <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner, 'family-preview-size': recipe.family_owner }"> -->
+    <div
+      class="card h-100"
+      :class="{
+        'family-recipe': recipe.family_owner,
+        'family-preview-size': recipe.family_owner
+      }"
+      :style="recipe.family_owner && recipe.image ? {
+        backgroundImage: 'url(' + recipe.image + ')',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      } : {}"
+    >
+
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="text-decoration-none text-dark full-link">
@@ -12,12 +26,6 @@
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
         class="text-decoration-none text-dark"
       >
-        <img
-          v-if="recipe.image"
-          :src="recipe.image"
-          class="card-img-top recipe-image"
-          alt="Recipe image"
-        />
       </router-link>
 
       <!-- Eye icon at top-right -->
@@ -64,7 +72,25 @@
       <button @click.stop="likeRecipe" class="like-btn mt-1">
         👍 {{ likes }}
       </button>
+      <!-- Only for family recipes -->
+      <div v-if="recipe.family_owner" class="family-extra mt-2 text-start px-2">
+        <h6>Ingredients:</h6>
+        <ul class="small">
+          <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
+            {{ ingredient }}
+          </li>
+        </ul>
+
+        <h6>Instructions:</h6>
+        <ol class="small">
+          <li v-for="(step, index) in formattedInstructions" :key="index">
+            {{ step }}
+          </li>
+        </ol>
+      </div>
+
     </div>
+
   </div>
 </template>
 
@@ -89,6 +115,16 @@ export default {
       hasLiked: false,
       wasViewedLocal: false 
     };
+  },
+  computed: {
+    formattedInstructions() {
+      if (!this.recipe.instructions) return [];
+      if (Array.isArray(this.recipe.instructions)) return this.recipe.instructions;
+      return this.recipe.instructions
+        .split(/\r?\n/)
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+    }
   },
   async mounted() {
     try {
@@ -375,6 +411,76 @@ export default {
 
 .recipePreview.preview-home .badge-label small {
   font-size: clamp(0.8rem, 1.3vw, 1rem);
+}
+.family-preview-size {
+  width: 95%;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 20px;
+  border: 3px solid black;
+  background-color: rgba(255,255,255,0.85);
+  border-radius: 12px;
+}
+.family-recipe {
+ background-size: cover;
+ background-position: center;
+ position: relative;
+ background-repeat: no-repeat;
+}
+
+
+.family-recipe .image-wrapper {
+  height: 350px;
+}
+
+.family-preview-size .image-wrapper {
+  height: 350px;
+}
+.family-recipe .card-title {
+  font-size: 1.4rem;
+}
+
+.family-recipe .card-text {
+  font-size: 1rem;
+}
+.family-extra h6 {
+  font-weight: bold;
+  margin-bottom: 4px;
+  margin-top: 10px;
+}
+.family-recipe .recipe-image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.family-preview-size .text-overlay {
+  position: static;
+  padding: 16px;
+  background: none;
+  text-align: start;
+}
+
+.family-preview-size .recipe-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.family-extra ul,
+.family-extra ol {
+  padding-left: 16px;
+  margin: 0;
+  font-size: 0.85rem;
+}
+.family-recipe .text-overlay {
+  position: static;
+  background: none;
+  backdrop-filter: none;
+  padding: 16px;
+  text-align: start;
+}
+
+.family-extra li {
+  margin-bottom: 6px;
 }
 
 </style>

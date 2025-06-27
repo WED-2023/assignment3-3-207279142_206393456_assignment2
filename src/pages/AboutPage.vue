@@ -15,6 +15,39 @@
       and connected the system to a relational database using SQL. The API supports functionality such as registration, login, fetching and saving recipes,
       managing favorites, and tracking recently viewed items.
     </p>
+    <h2 class="list-title">Project Foundations</h2>
+    <div class="row g-3 mt-3">
+      <div
+        class="col-md-6"
+        v-for="project in legacyProjects"
+        :key="project.title"
+      >
+        <div class="card project-card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">{{ project.description }}</p>
+            <div class="d-flex justify-content-start gap-2">
+              <a
+                v-if="project.github"
+                :href="project.github"
+                target="_blank"
+                class="btn btn-outline-dark btn-sm rounded-circle github-icon-btn"
+              >
+                <i class="bi bi-github github-icon"></i>
+              </a>
+              <a
+                v-if="project.live"
+                :href="project.live"
+                target="_blank"
+                class="btn btn-api-link btn-sm"
+              >
+                API Live
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <h2 class="list-title">Previous Projects</h2>
     <div class="row g-3 mt-3">
@@ -66,7 +99,23 @@ export default {
           live: "https://wed-2023.github.io/assignment1-206393456/",
           image: adelsonImage
         }
+      ],
+      legacyProjects: [
+        {
+          title: "API Design for Grandma Recipes",
+          description: "Swagger-based specification for the full recipe management API, including authentication, favorites, personal and family recipes.",
+          github: "",
+          live: "https://app.swaggerhub.com/apis/bengurionuniversity-7f9/GrandmaRecipes/1.0.0"
+        },
+        {
+          title: "Node.js Backend Server",
+          description: "A fully functional backend implemented in Node.js and Express, connected to a SQL database, handling user and recipe logic.",
+          github: "https://github.com/WED-2023/assignment3-2-207279142_206393456_.git",
+          live: ""
+        }
       ]
+
+
     };
   }
 };
@@ -99,6 +148,20 @@ export default {
   background: linear-gradient(to right, #9ae0f1, #b3efe5);
   margin: 12px auto 0;
   border-radius: 2px;
+}
+.btn-api-link {
+  color: black;
+  border: none;
+  padding: 6px 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  border-color: black;
+}
+
+.btn-api-link:hover {
+  background-color: black;
+  color: white;
 }
 
 </style>
