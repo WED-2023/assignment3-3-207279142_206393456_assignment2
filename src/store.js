@@ -25,7 +25,9 @@ const store = reactive({
   username: localStorage.getItem('username'),
 
   // Base server domain used across the app
-  server_domain: "http://localhost:3000",
+  server_domain: "https://GrandmaRecipes.cs.bgu.ac.il/api",
+    //server_domain: "http://localhost:3000",
+
 
   // Save username to localStorage and update store
   login(username) {
