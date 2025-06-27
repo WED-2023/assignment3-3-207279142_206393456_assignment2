@@ -24,10 +24,14 @@
     <div class="image-wrapper">
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-        class="text-decoration-none text-dark"
-      >
+        class="text-decoration-none text-dark">
+        <img
+          v-if="recipe.image && !recipe.family_owner"
+          :src="recipe.image"
+          alt="Recipe image"
+          class="recipe-image"
+        />
       </router-link>
-
       <!-- Eye icon at top-right -->
       <i
         :class="[
