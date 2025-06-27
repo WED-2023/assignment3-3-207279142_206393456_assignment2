@@ -478,8 +478,8 @@ export default {
 
 .family-preview .card {
   width: 100%;
-  max-width: 1100px;
-  min-height: 680px;
+  max-width: 3000px;
+  min-height: 2000px;
   background-color: rgba(255,255,255,0.9);
   border: 3px solid #333;
   border-radius: 16px;
