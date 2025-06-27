@@ -1,17 +1,7 @@
 <template>
   <!-- <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner, 'family-preview-size': recipe.family_owner }"> -->
-    <div
-      class="card h-100"
-      :class="{
-        'family-recipe': recipe.family_owner,
-        'family-preview-size': recipe.family_owner
-      }"
-      :style="recipe.family_owner && recipe.image ? {
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      } : {}"
-    >
+  <div class="card h-100">
+
 
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
@@ -415,100 +405,15 @@ export default {
 .recipePreview.preview-home .badge-label small {
   font-size: clamp(0.8rem, 1.3vw, 1rem);
 }
-.family-preview-size {
-  width: 95%;
-  max-width: 1100px;
-  margin: 0 auto 40px;
-  padding: 20px;
-  border: 3px solid black;
-  background-color: rgba(255,255,255,0.85);
-  border-radius: 12px;
-}
-.family-recipe {
- background-size: cover;
- background-position: center;
- position: relative;
- background-repeat: no-repeat;
-}
 
 
-
-.family-preview-size .image-wrapper {
-  height: 350px;
-}
-
-.family-recipe .recipe-image {
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-}
-.family-preview-size .text-overlay {
-  position: static;
-  padding: 16px;
-  background: none;
-  text-align: start;
-}
-
-.family-preview-size .recipe-image {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
 .family-extra ul,
 .family-extra ol {
   padding-left: 16px;
   margin: 0;
   font-size: 0.85rem;
 }
-.family-recipe .text-overlay {
-  position: relative;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(4px);
-  padding: 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  text-align: start;
-  z-index: 2;
-}
-
-
 .family-extra li {
   margin-bottom: 6px;
 }
-.family-preview .card {
-  max-width: 600px;
-  min-height: 550px;
-}
-.family-preview .image-wrapper {
-  height: 300px;
-}
-.family-preview .card-title {
-  font-size: 1.6rem;
-}
-.family-preview .card-text {
-  font-size: 1.2rem;
-}
-.family-preview .family-extra {
-  font-size: 1rem;
-}
-
-.family-recipe .image-wrapper {
-  height: 400px;
-}
-
-.family-recipe .card-title {
-  font-size: 2rem;
-}
-
-.family-recipe .card-text {
-  font-size: 1.4rem;
-}
-
-.family-extra {
-  font-size: 1.1rem;
-}
-
-.family-extra h6 {
-  font-size: 1.3rem;
-}
-
 </style>
