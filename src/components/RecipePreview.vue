@@ -433,25 +433,11 @@ export default {
 }
 
 
-.family-recipe .image-wrapper {
-  height: 350px;
-}
 
 .family-preview-size .image-wrapper {
   height: 350px;
 }
-.family-recipe .card-title {
-  font-size: 1.4rem;
-}
 
-.family-recipe .card-text {
-  font-size: 1rem;
-}
-.family-extra h6 {
-  font-weight: bold;
-  margin-bottom: 4px;
-  margin-top: 10px;
-}
 .family-recipe .recipe-image {
   object-fit: cover;
   height: 100%;
@@ -476,15 +462,49 @@ export default {
   font-size: 0.85rem;
 }
 .family-recipe .text-overlay {
-  position: static;
-  background: none;
-  backdrop-filter: none;
-  padding: 16px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   text-align: start;
+  z-index: 2;
 }
+
 
 .family-extra li {
   margin-bottom: 6px;
+}
+
+.family-preview .card {
+  width: 100%;
+  max-width: 1100px;
+  min-height: 680px;
+  background-color: rgba(255,255,255,0.9);
+  border: 3px solid #333;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.family-recipe .image-wrapper {
+  height: 400px;
+}
+
+.family-recipe .card-title {
+  font-size: 2rem;
+}
+
+.family-recipe .card-text {
+  font-size: 1.4rem;
+}
+
+.family-extra {
+  font-size: 1.1rem;
+}
+
+.family-extra h6 {
+  font-size: 1.3rem;
 }
 
 </style>
