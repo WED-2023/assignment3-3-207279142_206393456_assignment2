@@ -15,7 +15,7 @@
         title="Show other recipes"
       >Click for more</button>
 
-      <div v-if="gridMode" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      <div v-if="gridMode" :class="['row', $attrs.class === 'family-mode' ? 'family-row' : 'row-cols-1 row-cols-sm-2 row-cols-md-3 g-4']">
         <div class="col" v-for="r in recipes" :key="r.id">
           <RecipePreview
             class="recipePreview"
@@ -29,10 +29,15 @@
         <RecipePreview
           v-for="r in recipes"
           :key="r.id"
-          :class="['recipePreview', $attrs.class]"
+          :class="[
+            'recipePreview',
+            r.family_owner && $attrs.class === 'family-mode' ? 'family-preview' : '',
+            $attrs.class
+          ]"
           :recipe="r"
           :was-viewed="r.wasViewed"
         />
+
       </div>
     </div>
 
@@ -136,6 +141,25 @@ export default {
   position: relative;
   font-family: Avenir, Helvetica, Arial, sans-serif;
 
+}
+.family-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.family-row .col {
+  flex: 0 0 32%;
+  max-width: 32%;
+}
+
+.family-preview .card {
+  height: auto;
+  min-height: 520px;
+  max-height: none;
+  padding: 20px;
 }
 
 </style>
