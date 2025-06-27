@@ -1,8 +1,9 @@
 <template>
   <!-- <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner, 'family-preview-size': recipe.family_owner }"> -->
-  <div class="card h-100">
-
-
+    <div
+      class="card h-100"
+      :class="{ 'family-preview': recipe.family_owner }"
+    >
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="text-decoration-none text-dark full-link">
@@ -211,6 +212,10 @@ export default {
   text-align: center;
   margin-bottom: 0.25rem;
   
+}
+.family-preview {
+  max-height: none;
+  min-height: 600px;
 }
 
 
