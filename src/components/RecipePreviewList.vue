@@ -14,16 +14,36 @@
         @click="$emit('refresh-random')"
         title="Show other recipes"
       >Click for more</button>
-
-      <div v-if="gridMode" :class="['row', $attrs.class === 'family-mode' ? 'family-row' : 'row-cols-1 row-cols-sm-2 row-cols-md-3 g-4']">
-        <div class="col" v-for="r in recipes" :key="r.id">
+    
+      <div v-if="gridMode">
+        <div
+          v-if="$attrs.class === 'family-mode'"
+          class="family-grid"
+        >
           <RecipePreview
-            class="recipePreview"
+            v-for="r in recipes"
+            :key="r.id"
+            class="recipePreview family-preview"
             :recipe="r"
             :was-viewed="r.wasViewed"
           />
         </div>
+
+        <div
+          v-else
+          class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4"
+        >
+          <div class="col" v-for="r in recipes" :key="r.id">
+            <RecipePreview
+              class="recipePreview"
+              :recipe="r"
+              :was-viewed="r.wasViewed"
+            />
+          </div>
+        </div>
       </div>
+
+
 
       <div v-else class="grid-recipes">
         <RecipePreview
@@ -155,10 +175,20 @@ export default {
   max-width: 32%;
 }
 
+.family-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+  justify-items: center;
+}
+
 .family-preview .card {
-  height: auto;
-  min-height: 520px;
-  max-height: none;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 580px;
+  background-color: rgba(255,255,255,0.85);
+  border: 2px solid black;
   padding: 20px;
 }
 
