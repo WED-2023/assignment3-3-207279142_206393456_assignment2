@@ -189,22 +189,22 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 
 }
-.family-preview .card {
+.card.family-preview {
   width: 100%;
   max-width: 1000px;
-  min-height: 580px;
-  background-color: transparent; 
-  border: none;
-  padding: 0;
-  position: relative;
-  overflow: hidden;
+  background-color: rgba(255,255,255,0.85);
+  border: 2px solid black;
+  padding: 20px;
+  max-height: none;
+  min-height: 600px;
 }
-.family-preview .image-wrapper {
+
+.card.family-preview .image-wrapper {
   width: 100%;
   height: 100%;
   position: relative;
 }
-.family-preview .recipe-image {
+.card.family-preview .recipe-image {
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -213,7 +213,7 @@ export default {
   left: 0;
   z-index: 1;
 }
-.family-preview .text-overlay {
+.card.family-preview .text-overlay {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -224,6 +224,8 @@ export default {
   border-top: 1px solid rgba(0,0,0,0.1);
   z-index: 2;
 }
+
+
 .image-wrapper {
   position: relative;
   width: 100%;
@@ -246,10 +248,6 @@ export default {
   text-align: center;
   margin-bottom: 0.25rem;
   
-}
-.family-preview {
-  max-height: none;
-  min-height: 600px;
 }
 
 
