@@ -25,7 +25,8 @@
 </template>
 
 <script>
-import { getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
+import axios from 'axios';
 import NavBar from "@/components/NavBar.vue";
 
 export default {
@@ -38,6 +39,8 @@ export default {
     const store = internalInstance.appContext.config.globalProperties.store;
     const toast = internalInstance.appContext.config.globalProperties.toast;
     const router = internalInstance.appContext.config.globalProperties.$router;
+    const viewedRecipeIds = ref([]);
+    const lastViewed = ref([]);
 
     const logout = () => {
       localStorage.removeItem(`lastSearch-${store.username}`)
@@ -45,8 +48,24 @@ export default {
       toast("Logout", "User logged out successfully", "success");
       router.push("/").catch(() => {});
     };
-
-    return { store, logout };
+    onMounted(async () => {
+      if (store.username) {
+        try {
+          const response = await axios.get("/users/lastWatched");
+          lastViewed.value = response.data;
+          const allViewed = await axios.get("/users/viewedIds");
+          viewedRecipeIds.value = allViewed.data;
+        } catch (err) {
+          console.error("Failed to fetch viewed recipes", err);
+        }
+      }
+    });
+    return {
+      store,
+      logout,
+      lastViewed,
+      viewedRecipeIds
+    };
   }
 }
 </script>
