@@ -39,7 +39,10 @@ import RecipePreviewList from "@/components/RecipePreviewList.vue";
             id: r.recipe_id || r.id,
             ingredients: r.ingredients ?? [],
             instructions: r.instructions ?? "",
-            wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id)
+            wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id),
+            glutenFree: !!r.glutenFree,
+            vegan: !!r.vegan,
+            vegetarian: !!r.vegetarian
           }));
 
 

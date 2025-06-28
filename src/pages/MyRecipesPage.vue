@@ -37,8 +37,12 @@ export default {
         recipes.value = response.data.map(r => ({
           ...r,
           id: r.recipe_id || r.id,
-          wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id)
+          wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id),
+          glutenFree: !!r.glutenFree,
+          vegan: !!r.vegan,
+          vegetarian: !!r.vegetarian
         }));
+
 
       } catch (err) {
         console.error("API error:", err.response);
