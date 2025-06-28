@@ -1,5 +1,5 @@
 <template>
-  <div :class="['card', 'h-100', recipe.family_owner ? 'family-preview' : '']">
+<div :class="['card', 'h-100', recipe.family_owner ? 'family-preview-card' : '']">
 
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"

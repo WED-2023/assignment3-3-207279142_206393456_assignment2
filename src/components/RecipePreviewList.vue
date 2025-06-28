@@ -16,10 +16,7 @@
       >Click for more</button>
     
       <div v-if="gridMode">
-        <div
-          v-if="$attrs.class === 'family-mode'"
-          class="family-grid"
-        >
+        <div v-if="isFamily" class="family-grid">
           <RecipePreview
             v-for="r in recipes"
             :key="r.id"
@@ -86,6 +83,10 @@ export default {
       required: true,
     },
     showRefresh: {
+      type: Boolean,
+      default: false,
+    },
+    isFamily: {
       type: Boolean,
       default: false,
     },
