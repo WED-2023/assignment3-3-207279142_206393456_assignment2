@@ -1,7 +1,7 @@
 <template>
     <div class="favorites-page">
       <div v-if="loading">Loading favorites...</div>
-      <div v-else-if="recipes.length === 0">
+      <div v-else-if="recipes.length === 0" class="no-recipes-message">
         You have no favorite recipes yet.
       </div>
       <!-- <RecipePreviewList v-else title="My Favorites" :recipes="recipes" /> -->
@@ -64,5 +64,17 @@
     padding: 10px;
     margin: 10px 0;
   }
+  .no-recipes-message {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #666;
+  padding: 40px 20px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  margin-top: 30px;
+}
+
   </style>
   

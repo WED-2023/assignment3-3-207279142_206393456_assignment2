@@ -2,7 +2,9 @@
     <div class="my-family-page container">  
   
       <div v-if="loading">Loading...</div>
-  
+      <div v-else-if="recipes.length === 0" class="no-recipes-message">
+        You haven't added any family recipes yet.
+      </div>
       <RecipePreviewList
         v-else
         title="Family Recipes"
@@ -10,7 +12,7 @@
         :gridMode="true"
         class="family-mode"
       />
-
+      
     </div>
   </template>
   
@@ -60,5 +62,16 @@
     font-family: Avenir, Helvetica, Arial, sans-serif;
 
   }
-  </style>
+  .no-recipes-message {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #666;
+  padding: 40px 20px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  margin-top: 30px;
+}
+</style>
   
