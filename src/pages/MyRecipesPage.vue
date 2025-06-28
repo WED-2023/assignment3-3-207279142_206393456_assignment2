@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, getCurrentInstance } from "vue";
 import RecipePreviewList from "@/components/RecipePreviewList.vue";
 
 export default {
@@ -27,6 +27,8 @@ export default {
   setup() {
     const recipes = ref([]);
     const loading = ref(true);
+    const internalInstance = getCurrentInstance();
+    const store = internalInstance.appContext.config.globalProperties.store;
 
     // Load recipes from backend
     const loadRecipes = async () => {
@@ -34,8 +36,10 @@ export default {
         const response = await window.axios.get("/users/myRecipes");
         recipes.value = response.data.map(r => ({
           ...r,
-          id: r.recipe_id || r.id
+          id: r.recipe_id || r.id,
+          wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id)
         }));
+
       } catch (err) {
         console.error("API error:", err.response);
         window.toast(
@@ -50,7 +54,7 @@ export default {
 
     onMounted(loadRecipes);
 
-    return { recipes, loading };
+    return { recipes, loading, store };
   },
 };
 </script>

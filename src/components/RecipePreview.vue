@@ -138,17 +138,28 @@ export default {
 
 
   },
-  async mounted() {
-    try {
-      const favs = await this.$root.axios.get("/users/favorites");
-      const favIds = favs.data.map(r => r.recipe_id || r.id);
-      this.isFavorite = favIds.includes(this.recipe.id);
-      const viewed = await this.$root.axios.get("/users/lastWatched");
-      const viewedIds = viewed.data.map(r => r.recipe_id || r.id);
-      this.wasViewedLocal = viewedIds.includes(this.recipe.id);
-    } catch (err) {
-      console.error("Failed to check favorites:", err);
+  mounted() {
+    if (this.wasViewed) {
+      this.wasViewedLocal = true;
+    } else {
+      this.$root.axios.get("/users/lastWatched")
+        .then(res => {
+          const viewedIds = res.data.map(r => r.recipe_id || r.id);
+          this.wasViewedLocal = viewedIds.includes(this.recipe.id);
+        })
+        .catch(err => {
+          console.error("Failed to check if recipe was recently viewed:", err);
+        });
     }
+
+    this.$root.axios.get("/users/favorites")
+      .then(favs => {
+        const favIds = favs.data.map(r => r.recipe_id || r.id);
+        this.isFavorite = favIds.includes(this.recipe.id);
+      })
+      .catch(err => {
+        console.error("Failed to check favorites:", err);
+      });
   },
   methods: {
     async toggleFavorite() {

@@ -11,8 +11,8 @@
   </template>
   
   <script>
-  import { ref, onMounted } from 'vue';
-  import RecipePreviewList from "@/components/RecipePreviewList.vue";
+import { ref, onMounted, getCurrentInstance } from 'vue';
+import RecipePreviewList from "@/components/RecipePreviewList.vue";
 
   export default {
     name: 'MyFavoritesPage',
@@ -23,6 +23,8 @@
       const recipes = ref([]);
       const loading = ref(true);
       const showModal = ref(false);
+      const internalInstance = getCurrentInstance();
+      const store = internalInstance.appContext.config.globalProperties.store;
 
       const handleRecipeCreated = () => {
         showModal.value = false;
@@ -36,8 +38,10 @@
             ...r,
             id: r.recipe_id || r.id,
             ingredients: r.ingredients ?? [],
-            instructions: r.instructions ?? ""
+            instructions: r.instructions ?? "",
+            wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id)
           }));
+
 
         } catch (err) {
           console.error("Failed to load favorites:", err);
@@ -47,7 +51,7 @@
         }
       });
   
-      return { showModal,recipes, loading , handleRecipeCreated};
+      return { showModal, recipes, loading, handleRecipeCreated };
     }
   };
   </script>

@@ -37,7 +37,8 @@
           const response = await window.axios.get("/users/myFamily");
           recipes.value = response.data.map(r => ({
             ...r,
-            id: r.recipe_id || r.id
+            id: r.recipe_id || r.id,
+            wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id)
           }));
         } catch (err) {
           console.error("Failed to load family recipes:", err);

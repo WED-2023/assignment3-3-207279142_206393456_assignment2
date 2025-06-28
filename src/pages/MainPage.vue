@@ -68,13 +68,19 @@ export default {
     const showModal = ref(false);
     const randomRecipes = ref([]);
     const lastViewed = ref([]);
+    const viewedRecipeIds = ref([]);
 
     const fetchRandomRecipes = async () => {
       try {
         const response = await axios.get("/recipes/random", {
           withCredentials: true
         });
-        randomRecipes.value = response.data.slice(0, 3);
+        //randomRecipes.value = response.data.slice(0, 3);
+        randomRecipes.value = response.data.slice(0, 3).map(r => ({
+          ...r,
+          wasViewed: viewedRecipeIds.value.includes(r.recipe_id || r.id)
+        }));
+
       } catch (error) {
         console.error("Failed to fetch random recipes:", error);
       }
@@ -94,8 +100,14 @@ export default {
             ...recipe,
             wasViewed: true
           }));
+
+          const viewedRes = await axios.get("/users/viewedIds", {
+            withCredentials: true
+          });
+          viewedRecipeIds.value = viewedRes.data;
+
         } catch (err) {
-          console.error("Failed to fetch last watched recipes:", err);
+          console.error("Failed to fetch watched recipes:", err);
         }
       }
       await fetchRandomRecipes();
@@ -107,8 +119,10 @@ export default {
       handleRecipeCreated,
       randomRecipes,
       lastViewed,
-      fetchRandomRecipes
+      fetchRandomRecipes,
+      viewedRecipeIds
     };
+
   }
 };
 </script>
