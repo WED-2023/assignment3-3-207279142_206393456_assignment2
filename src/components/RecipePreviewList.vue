@@ -87,7 +87,29 @@ export default {
       default: false,
     },
   },
+  mounted() {
+    this.markViewedRecipes();
+  },
+  methods: {
+    async markViewedRecipes() {
+      try {
+        const viewedIds = await this.$root.axios.get("/users/viewedIds")
+          .then(res => res.data);
+          this.recipes.forEach((recipe, index) => {
+            const isViewed = viewedIds.includes(recipe.recipe_id || recipe.id);
+            this.$set(this.recipes, index, {
+              ...recipe,
+              wasViewed: isViewed
+            });
+          });
+
+      } catch (err) {
+        console.error("❌ Failed to fetch viewed recipe IDs:", err);
+      }
+    }
+  }
 };
+
 </script>
 
 <style lang="scss" scoped>
