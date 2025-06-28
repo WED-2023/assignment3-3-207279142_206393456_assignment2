@@ -128,8 +128,9 @@ export default {
         .map(line => line.replace(/<\/?[^>]+(>|$)/g, ''))  // Remove HTML tags
         .map(line => line.replace(/^\s*\d+[).]?\s*/, ''))  // Remove leading numbering
         .map(line => line.trim())                          // Trim whitespace
-        .filter(line => line.length > 1);                  // Filter out junk
+        .filter(line => line.length > 1);                  // Skip empty or short
     }
+
 
   },
   async mounted() {
