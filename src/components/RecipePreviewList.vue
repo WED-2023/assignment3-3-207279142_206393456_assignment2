@@ -1,4 +1,4 @@
-<template>More actions
+<template>
   <b-container class="preview-container">
     <h2 class="list-title">
       {{ title }}
