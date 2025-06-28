@@ -20,13 +20,21 @@
           v-if="$attrs.class === 'family-mode'"
           class="family-grid"
         >
-          <RecipePreview
+          <!-- <RecipePreview
             v-for="r in recipes"
             :key="r.id"
             class="recipePreview family-preview"
             :recipe="r"
             :was-viewed="r.wasViewed"
+          /> -->
+          <RecipePreview
+            v-for="r in recipes"
+            :key="r.id"
+            class="recipePreview"
+            :recipe="r"
+            :was-viewed="r.wasViewed"
           />
+
         </div>
 
         <div
