@@ -215,7 +215,13 @@ export default {
   min-height: 800px;
   border: none !important;
   background-color: transparent !important;
-
+  outline: none !important;
+  box-shadow: none !important;
+}
+.card.family-preview:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 .card.family-preview .image-wrapper {
@@ -239,7 +245,7 @@ export default {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));
+  background: linear-gradient(to top, rgba(255,255,255,0.85), rgba(255,255,255,0));
   padding: 16px 10px 10px;
   backdrop-filter: blur(4px);
   text-align: center;
