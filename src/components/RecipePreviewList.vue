@@ -20,7 +20,7 @@
           <RecipePreview
             v-for="r in recipes"
             :key="r.id"
-            class="recipePreview family-preview"
+            class="recipePreview"
             :recipe="r"
             :was-viewed="r.wasViewed"
           /> 
