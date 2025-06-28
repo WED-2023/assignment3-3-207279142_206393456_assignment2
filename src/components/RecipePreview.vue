@@ -1,28 +1,29 @@
 <template>
-  <!-- <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner, 'family-preview-size': recipe.family_owner }"> -->
-    <div
-      class="card h-100"
-      :class="{ 'family-preview': recipe.family_owner }"
-    >
-    <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-      class="text-decoration-none text-dark full-link">
-      <div class="image-overlay">To view the recipe</div>
-    </router-link>
-
-
+  <!-- Recipe card wrapper -->
+  <div
+    class="card h-100"
+    :class="{ 'family-preview': recipe.family_owner }"
+  >
+    <!-- IMAGE SECTION (with clickable overlay) -->
     <div class="image-wrapper">
+      <!-- Full clickable link over image -->
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-        class="text-decoration-none text-dark">
-        <img
-          v-if="recipe.image"
-          :src="recipe.image"
-          alt="Recipe image"
-          class="recipe-image"
-        />
+        class="text-decoration-none text-dark full-link"
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3;"
+      >
+        <div class="image-overlay">To view the recipe</div>
       </router-link>
-      <!-- Eye icon at top-right -->
+
+      <!-- Recipe image -->
+      <img
+        v-if="recipe.image"
+        :src="recipe.image"
+        alt="Recipe image"
+        class="recipe-image"
+      />
+
+      <!-- Viewed icon (top-right corner) -->
       <i
         :class="[
           'bi',
@@ -32,24 +33,26 @@
         :title="wasViewedLocal ? 'Already viewed' : 'Not viewed yet'"
       ></i>
 
-      <!-- Heart icon at top-left -->
+      <!-- Favorite heart icon (top-left corner) -->
       <button @click.stop="toggleFavorite"
         :class="['favorite-icon-simple', { filled: isFavorite }]">
         ❤
       </button>
-
     </div>
-    <!-- Text overlay container --> 
+
+    <!-- TEXT OVERLAY SECTION -->
     <div class="text-overlay">
+      <!-- Recipe title -->
       <h5 class="card-title d-flex justify-content-center align-items-center gap-2">
         {{ recipe.title }}
       </h5>
 
-      <!-- <p class="card-text">{{ recipe.readyInMinutes }} minutes</p> -->
+      <!-- Ready time -->
       <p class="card-text">
         {{ recipe.readyInMinutes || 'N/A' }} minutes
       </p>
 
+      <!-- Diet badges -->
       <div class="diet-labels d-flex justify-content-center gap-3 mt-1">
         <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
           🥦 <small>Vegetarian</small>
@@ -62,16 +65,18 @@
         </span>
       </div>
 
+      <!-- Family owner and event -->
       <div v-if="recipe.family_owner" class="card-text mt-1">
         <p class="mb-1">Family Recipe for {{ recipe.family_event }}</p>
         <p class="mb-0">by {{ recipe.family_owner }}</p>
       </div>
 
-
+      <!-- Like button -->
       <button @click.stop="likeRecipe" class="like-btn mt-1">
         👍 {{ likes }}
       </button>
-      <!-- Only for family recipes -->
+
+      <!-- Extra details only for family recipes -->
       <div v-if="recipe.family_owner" class="family-extra mt-2 text-start px-2">
         <h6>Ingredients:</h6>
         <ul class="small">
@@ -87,12 +92,9 @@
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
-
 
 <script>
 export default {
@@ -240,26 +242,16 @@ export default {
 
 }
 .card.family-preview {
-  width: 100%;
-  max-width: none;
-  padding: 20px;
-  max-height: none;
-  min-height: 800px;
-  border: none !important;
-  background-color: transparent !important;
-  outline: none !important;
-  box-shadow: none !important;
-
-
-
-
-
-
-
-
-
-
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: white;
+  position: relative;
 }
+
 
 .card.family-preview:hover {
   outline: none !important;
@@ -268,10 +260,10 @@ export default {
 }
 
 .card.family-preview .image-wrapper {
-  width: 100%;
-  height: 100%;
+  height: 300px;
   position: relative;
 }
+
 .card.family-preview .recipe-image {
   object-fit: cover;
   width: 100%;
@@ -280,21 +272,18 @@ export default {
   top: 0; 
   left: 0;
   z-index: 1;
-  border-radius: 12px;
-  border: none !important;
-
 }
+
 .card.family-preview .text-overlay {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: linear-gradient(to top, rgba(255,255,255,0.85), rgba(255,255,255,0));
-  padding: 16px 10px 10px;
-  backdrop-filter: blur(4px);
-  text-align: center;
-  border: none;
+  position: relative;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 20px 16px 16px;
+  text-align: left;
+  overflow-y: auto;
+  max-height: 500px;
   z-index: 2;
 }
+
 
 
 
