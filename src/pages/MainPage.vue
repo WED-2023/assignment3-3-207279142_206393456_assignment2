@@ -6,7 +6,7 @@
         <!-- Left side: Random Recipes -->
         <div class="col-12 col-md-6 mb-4">
           <RecipePreviewList
-            title="Random Recipes"
+            title="Explore This Recipes"
             :recipes="randomRecipes"
             class="preview-home"
             @refresh-random="fetchRandomRecipes"
@@ -17,7 +17,7 @@
         <!-- Right side: Last Viewed -->
         <div class="col-12 col-md-6 mb-4">
           <RecipePreviewList
-            title="Last Viewed Recipes"
+            title="Last Watched Recipes"
             :recipes="lastViewed"
             class="preview-home"
           />
@@ -31,7 +31,7 @@
         <!-- Left: Random Recipes -->
         <div class="col-12 col-md-6 mb-4">
           <RecipePreviewList
-            title="Random Recipes"
+            title="Explore This Recipes"
             :recipes="randomRecipes"
             class="preview-home"
             @refresh-random="fetchRandomRecipes"

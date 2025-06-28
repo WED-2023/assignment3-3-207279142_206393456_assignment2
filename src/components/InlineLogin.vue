@@ -35,7 +35,12 @@
         <button type="submit" class="btn btn-primary w-100 mt-2" :disabled="isLoading">
           {{ isLoading ? 'Logging in...' : 'Login' }}
         </button>
-            
+        <div class="mt-3 text-center">
+          <p>Don't have an account?
+            <a @click.prevent="goToRegister" href="#">Register here</a>
+          </p>
+        </div>
+
 
       </form>
     </div>
