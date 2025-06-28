@@ -1,13 +1,16 @@
-<template>
-<div :class="['card', 'h-100', recipe.family_owner ? 'family-preview-card' : '']">
-
+<template>Add commentMore actions
+  <!-- <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner, 'family-preview-size': recipe.family_owner }"> -->
+    <div
+      class="card h-100"
+      :class="{ 'family-preview': recipe.family_owner }"
+    >
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
       class="text-decoration-none text-dark full-link">
       <div class="image-overlay">To view the recipe</div>
     </router-link>
 
-    
+
     <div class="image-wrapper">
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
@@ -204,7 +207,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 
 }
-/* .card.family-preview {
+.card.family-preview {
   width: 100%;
   max-width: none;
   padding: 20px;
@@ -214,16 +217,16 @@ export default {
   background-color: transparent !important;
   outline: none !important;
   box-shadow: none !important;
-} */
-.card.family-preview {
-  padding: 0 !important;
-  margin: 0 !important;
-  width: 100%;
-  height: 100%;
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  outline: none !important;
+
+
+
+
+
+
+
+
+
+
 }
 
 .card.family-preview:hover {

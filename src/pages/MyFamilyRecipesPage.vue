@@ -8,8 +8,8 @@
         title="Family Recipes"
         :recipes="recipes"
         :gridMode="true"
-        :isFamily="true"
-        />
+        class="family-mode"
+      />
 
     </div>
   </template>

@@ -1,5 +1,4 @@
-
-
+More actions
 <template>
   <b-container class="preview-container">
     <h2 class="list-title">
@@ -14,17 +13,27 @@
         @click="$emit('refresh-random')"
         title="Show other recipes"
       >Click for more</button>
-    
+
       <div v-if="gridMode">
-        <div v-if="isFamily" class="family-grid">
+        <div
+          v-if="$attrs.class === 'family-mode'"
+          class="family-grid"
+        >
           <RecipePreview
             v-for="r in recipes"
             :key="r.id"
-            class="recipePreview"
+            class="recipePreview family-preview"
             :recipe="r"
             :was-viewed="r.wasViewed"
-          /> 
-          
+
+
+
+
+
+
+
+          />
+
         </div>
 
         <div
@@ -83,10 +92,6 @@ export default {
       required: true,
     },
     showRefresh: {
-      type: Boolean,
-      default: false,
-    },
-    isFamily: {
       type: Boolean,
       default: false,
     },
