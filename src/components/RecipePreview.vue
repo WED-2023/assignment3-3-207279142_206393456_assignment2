@@ -9,19 +9,20 @@
       <!-- Full clickable link over image -->
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-        class="text-decoration-none text-dark full-link"
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3;"
-      >
+        class="text-decoration-none text-dark">
+        <!-- style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;" -->
+      
+        <!-- Recipe image -->
+        <img
+          v-if="recipe.image"
+          :src="recipe.image"
+          alt="Recipe image"
+          class="recipe-image"
+        />
         <div class="image-overlay">To view the recipe</div>
       </router-link>
 
-      <!-- Recipe image -->
-      <img
-        v-if="recipe.image"
-        :src="recipe.image"
-        alt="Recipe image"
-        class="recipe-image"
-      />
+
 
       <!-- Viewed icon (top-right corner) -->
       <i

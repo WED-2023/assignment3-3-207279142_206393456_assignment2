@@ -33,7 +33,7 @@ import RecipePreviewList from "@/components/RecipePreviewList.vue";
       onMounted(async () => {
         try {
           const response = await window.axios.get('/users/favorites');
-          console.log("Loaded favorites:", response.data); // ← מוסיפים את זה
+          console.log("Loaded favorites:", response.data); 
           recipes.value = response.data.map(r => ({
             ...r,
             id: r.recipe_id || r.id,
