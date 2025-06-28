@@ -195,6 +195,8 @@ export default {
   padding: 20px;
   max-height: none;
   min-height: 600px;
+  border: none !important;
+
 }
 
 .card.family-preview .image-wrapper {
