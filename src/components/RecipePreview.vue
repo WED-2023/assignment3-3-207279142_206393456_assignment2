@@ -244,7 +244,8 @@ export default {
 .card.family-preview {
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
+  max-width: 450px; /* instead of 400 or auto */
+  min-height: 700px; /* bigger card */
   border: 2px solid #ccc;
   border-radius: 12px;
   overflow: hidden;
@@ -260,9 +261,10 @@ export default {
 }
 
 .card.family-preview .image-wrapper {
-  height: 300px;
+  height: 400px; /* larger image */
   position: relative;
 }
+
 
 .card.family-preview .recipe-image {
   object-fit: cover;
@@ -276,13 +278,14 @@ export default {
 
 .card.family-preview .text-overlay {
   position: relative;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.85);
   padding: 20px 16px 16px;
   text-align: left;
   overflow-y: auto;
-  max-height: 500px;
+  flex: 1; /* take all remaining space */
   z-index: 2;
 }
+
 
 
 
