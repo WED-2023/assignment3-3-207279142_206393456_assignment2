@@ -1,4 +1,4 @@
-<template>Add commentMore actions
+<template>
   <!-- <div class="card h-100" :class="{ 'family-recipe': recipe.family_owner, 'family-preview-size': recipe.family_owner }"> -->
     <div
       class="card h-100"
