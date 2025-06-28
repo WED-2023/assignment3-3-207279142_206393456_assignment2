@@ -80,21 +80,21 @@ export default {
       projects: [
         {
           title: "Bubble Invaders Game",
-          description: "A JavaScript canvas game with enemy images and bullet logic.",
+          description: "A game built with HTML5, CSS3 and JavaScript. Bubble Invaders is a fast-paced game where the player controls a character and must destroy waves of invading bubbles.",
           github: "https://github.com/WED-2023/assignment2-207279142_206393456_assignment2.git",
           live: "https://wed-2023.github.io/assignment2-207279142_206393456_assignment2/",
           image: bubbleImage
         },
         {
-          title: "Miriam Peretz Tribute",
-          description: "A single-page tribute site for a modern Israeli leader.",
+          title: "Miriam Peretz",
+          description: "This project is a static websit. It presents the personal story and professional journey of Miriam Peretz.",
           github: "https://github.com/WED-2023/207279142.git",
           live: "https://wed-2023.github.io/207279142/",
           image: miriamImage
         },
         {
-          title: "Miriam Adelson Tribute",
-          description: "A tribute site for Miriam Adelson, part of our first assignment.",
+          title: "Miriam Adelson",
+          description: "This project is a static websit. It presents the personal story and professional journey of Miriam Adelson.",
           github: "https://github.com/WED-2023/assignment1-206393456.git",
           live: "https://wed-2023.github.io/assignment1-206393456/",
           image: adelsonImage
