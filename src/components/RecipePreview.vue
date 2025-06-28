@@ -45,7 +45,10 @@
         {{ recipe.title }}
       </h5>
 
-      <p class="card-text">{{ recipe.readyInMinutes }} minutes</p>
+      <!-- <p class="card-text">{{ recipe.readyInMinutes }} minutes</p> -->
+      <p class="card-text">
+        {{ recipe.readyInMinutes || 'N/A' }} minutes
+      </p>
 
       <div class="diet-labels d-flex justify-content-center gap-3 mt-1">
         <span :class="['badge-label', recipe.vegetarian ? 'active' : 'inactive']">
