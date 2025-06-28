@@ -161,8 +161,8 @@ export default {
         try {
           await window.axios.post('/Register', {
             username: state.username,
-            firstname: state.firstname,
-            lastname: state.lastname,
+            first_name: state.firstname,
+            last_name: state.lastname,
             country: state.country,
             password: state.password,
             email: state.email,
