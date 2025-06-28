@@ -23,6 +23,7 @@ import { reactive } from 'vue';
 const store = reactive({
   // Get username from localStorage if exists
   username: localStorage.getItem('username'),
+  viewedRecipeIds: [],
 
   // Base server domain used across the app
   server_domain: "https://GrandmaRecipes.cs.bgu.ac.il/api",
@@ -49,6 +50,7 @@ const store = reactive({
 
     // Reset store state
     this.username = undefined;
+    this.viewedRecipeIds = [];
 
     // Redirect to login page
     window.router.push('/login');

@@ -138,29 +138,50 @@ export default {
 
 
   },
+  // mounted() {
+    // if (this.wasViewed) {
+    //   this.wasViewedLocal = true;
+    // } else {
+    //   this.$root.axios.get("/users/lastWatched")
+    //     .then(res => {
+    //       const viewedIds = res.data.map(r => r.recipe_id || r.id);
+    //       this.wasViewedLocal = viewedIds.includes(this.recipe.id);
+    //     })
+    //     .catch(err => {
+    //       console.error("Failed to check if recipe was recently viewed:", err);
+    //     });
+    // }
+  //   this.wasViewedLocal = this.wasViewed || this.$root.store.viewedRecipeIds?.includes(this.recipe.id);
+
+  //   this.$root.axios.get("/users/favorites")
+  //     .then(favs => {
+  //       const favIds = favs.data.map(r => r.recipe_id || r.id);
+  //       this.isFavorite = favIds.includes(this.recipe.id);
+  //     })
+  //     .catch(err => {
+  //       console.error("Failed to check favorites:", err);
+  //     });
+  // },
   mounted() {
+    const currentId = this.recipe.recipe_id || this.recipe.id;
+
     if (this.wasViewed) {
       this.wasViewedLocal = true;
     } else {
-      this.$root.axios.get("/users/lastWatched")
-        .then(res => {
-          const viewedIds = res.data.map(r => r.recipe_id || r.id);
-          this.wasViewedLocal = viewedIds.includes(this.recipe.id);
-        })
-        .catch(err => {
-          console.error("Failed to check if recipe was recently viewed:", err);
-        });
+      const viewedIds = this.$root.store.viewedRecipeIds || [];
+      this.wasViewedLocal = viewedIds.includes(currentId);
     }
 
     this.$root.axios.get("/users/favorites")
       .then(favs => {
         const favIds = favs.data.map(r => r.recipe_id || r.id);
-        this.isFavorite = favIds.includes(this.recipe.id);
+        this.isFavorite = favIds.includes(currentId);
       })
       .catch(err => {
         console.error("Failed to check favorites:", err);
       });
   },
+
   methods: {
     async toggleFavorite() {
       if (!this.$root.store.username) {

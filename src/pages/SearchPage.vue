@@ -166,7 +166,10 @@ export default {
           "/recipes", { params }
         );
 
-        searchResults.value = response.data;
+        searchResults.value = response.data.map(r => ({
+          ...r,
+          wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id)
+        }));
         hasSearched.value = true;
 
         if (store.username) {

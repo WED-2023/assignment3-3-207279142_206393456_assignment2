@@ -55,6 +55,8 @@ export default {
           lastViewed.value = response.data;
           const allViewed = await axios.get("/users/viewedIds");
           viewedRecipeIds.value = allViewed.data;
+
+          store.viewedRecipeIds = allViewed.data;
         } catch (err) {
           console.error("Failed to fetch viewed recipes", err);
         }
