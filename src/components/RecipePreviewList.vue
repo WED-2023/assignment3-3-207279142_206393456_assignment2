@@ -1,5 +1,4 @@
-More actions
-<template>
+<template>More actions
   <b-container class="preview-container">
     <h2 class="list-title">
       {{ title }}
@@ -25,15 +24,7 @@ More actions
             class="recipePreview family-preview"
             :recipe="r"
             :was-viewed="r.wasViewed"
-
-
-
-
-
-
-
           />
-
         </div>
 
         <div
@@ -193,9 +184,12 @@ export default {
 .family-preview .card {
   width: 100%;
   max-width: 1000px;
+  min-height: 580px;
+  background-color: rgba(255,255,255,0.85);
+  border: 2px solid black;
   padding: 20px;
-  max-height: none;
-  min-height: 600px;
+
+
 }
 
 </style>
