@@ -231,18 +231,22 @@ export default {
   top: 0; 
   left: 0;
   z-index: 1;
+  border-radius: 12px;
+  border: none !important;
+
 }
 .card.family-preview .text-overlay {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 14px 10px;
+  background: linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0));
+  padding: 16px 10px 10px;
   backdrop-filter: blur(4px);
   text-align: center;
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border: none;
   z-index: 2;
 }
+
 
 
 .image-wrapper {
