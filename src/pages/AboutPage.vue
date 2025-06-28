@@ -80,7 +80,7 @@ export default {
       projects: [
         {
           title: "Bubble Invaders Game",
-          description: "A game built with HTML5, CSS3 and JavaScript. Bubble Invaders is a fast-paced game where the player controls a character and must destroy waves of invading bubbles.",
+          description: "Bubble Invaders is a fast-paced game where the player controls a character and must destroy waves of invading bubbles.",
           github: "https://github.com/WED-2023/assignment2-207279142_206393456_assignment2.git",
           live: "https://wed-2023.github.io/assignment2-207279142_206393456_assignment2/",
           image: bubbleImage
