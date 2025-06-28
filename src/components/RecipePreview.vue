@@ -46,7 +46,11 @@
       <h5 class="card-title d-flex justify-content-center align-items-center gap-2">
         {{ recipe.title }}
       </h5>
-
+      <!-- Family owner and event -->
+      <div v-if="recipe.family_owner" class="card-text mt-1 text-center">
+        <p class="mb-1">Family Recipe for {{ recipe.family_event }}</p>
+        <p class="mb-0">by {{ recipe.family_owner }}</p>
+      </div>
       <!-- Ready time -->
       <p class="card-text">
         {{ recipe.readyInMinutes || 'N/A' }} minutes
@@ -65,14 +69,9 @@
         </span>
       </div>
 
-      <!-- Family owner and event -->
-      <div v-if="recipe.family_owner" class="card-text mt-1">
-        <p class="mb-1">Family Recipe for {{ recipe.family_event }}</p>
-        <p class="mb-0">by {{ recipe.family_owner }}</p>
-      </div>
 
       <!-- Like button -->
-      <button @click.stop="likeRecipe" class="like-btn mt-1">
+      <button @click.stop="likeRecipe" class="like-btn mt-1 d-block mx-auto">
         👍 {{ likes }}
       </button>
 
@@ -304,6 +303,8 @@ export default {
 .card-text {
   margin-bottom: 2px !important;
   line-height: 1.1;
+  text-align: center;
+
 }
 .card-title {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
