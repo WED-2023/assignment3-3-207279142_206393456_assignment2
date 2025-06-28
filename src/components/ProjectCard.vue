@@ -1,5 +1,5 @@
 <template>
-  <div class="project-card card h-100 shadow-sm position-relative">
+  <div class="project-card card h-100 shadow-sm">
     <a :href="live" target="_blank" class="project-image-link">
       <div class="image-wrapper">
         <img v-if="image" :src="image" class="card-img-top" alt="Project image" />
@@ -9,16 +9,16 @@
     <div class="card-body">
       <h5 class="card-title">{{ title }}</h5>
       <p class="card-text">{{ description }}</p>
+      <div class="d-flex justify-content-start gap-2">
+        <a
+          :href="github"
+          target="_blank"
+          class="btn btn-outline-dark btn-sm rounded-circle github-icon-btn"
+        >
+          <i class="bi bi-github github-icon"></i>
+        </a>
+      </div>
     </div>
-
-    <!-- GitHub icon pinned to bottom left -->
-    <a
-      :href="github"
-      target="_blank"
-      class="btn btn-outline-dark btn-sm rounded-circle github-icon-btn fixed-bottom-left"
-    >
-      <i class="bi bi-github github-icon"></i>
-    </a>
   </div>
 </template>
 
@@ -98,11 +98,4 @@ export default {
   font-size: 1.5rem;
   line-height: 1;
 }
-.fixed-bottom-left {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  z-index: 10;
-}
-
 </style>

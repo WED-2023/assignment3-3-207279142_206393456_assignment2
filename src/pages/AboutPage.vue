@@ -33,7 +33,7 @@
                 target="_blank"
                 class="btn btn-outline-dark btn-sm rounded-circle github-icon-btn"
               >
-              <i class="bi bi-github github-icon"></i>
+                <i class="bi bi-github github-icon"></i>
               </a>
               <a
                 v-if="project.live"
