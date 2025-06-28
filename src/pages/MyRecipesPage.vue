@@ -38,7 +38,7 @@ export default {
           ...r,
           id: r.recipe_id || r.id,
           wasViewed: store.viewedRecipeIds?.includes(r.recipe_id || r.id),
-          glutenFree: !!r.glutenFree,
+          glutenFree: !!(r.glutenFree ?? r.gluten_free),
           vegan: !!r.vegan,
           vegetarian: !!r.vegetarian
         }));
