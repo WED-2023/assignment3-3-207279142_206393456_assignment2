@@ -19,7 +19,7 @@ The application allows users to browse, search, and manage recipes. Authenticate
 - Backend Repository: [https://github.com/WED-2023/assignment3-2-207279142_206393456_.git](https://github.com/WED-2023/assignment3-2-207279142_206393456_.git)
 - API Documentation (Swagger): [https://app.swaggerhub.com/apis/bengurionuniversity-7f9/GrandmaRecipes/1.0.0](https://app.swaggerhub.com/apis/bengurionuniversity-7f9/GrandmaRecipes/1.0.0)
 
-- Changes Made to the API (compared to Assignment 3.1): A full list of changes appears in api_changes.txt.
+- Changes Made to the API (compared to Assignment 3.1 and Assignment 3.2): A full list of changes appears in final_api_summary.txt
 
 ---
 
