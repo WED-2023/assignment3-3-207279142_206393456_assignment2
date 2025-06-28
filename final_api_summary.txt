@@ -1,0 +1,45 @@
+Grandma Recipes - Final API Summary
+===================================
+
+AUTH (/auth)
+---------------
+POST   /auth/Register        - Register a new user
+POST   /auth/Login           - Log in with username and password
+POST   /auth/Logout          - Log out and reset session
+
+RECIPES (/recipes)
+---------------------
+GET    /recipes              - Search recipes (query, limit, filters)
+GET    /recipes/random       - Get 3 random recipes
+GET    /recipes/:id          - Get full recipe details by ID
+GET    /recipes/:id/preview  - Get recipe preview by ID
+PUT    /recipes/:id/like     - Like a recipe (increase popularity)
+
+USER (/users or /user)
+-------------------------
+GET    /users/favorites           - Get all favorite recipes
+POST   /users/favorites           - Mark recipe as favorite
+GET    /user/viewedIds            - Get list of viewed recipe IDs (DB)
+POST   /user/viewed               - Mark a recipe as viewed
+GET    /users/lastWatched         - Get last 3 watched recipes
+GET    /users/lastSearches        - Get previous searches
+GET    /users/myRecipes           - Get user's own recipes
+GET    /users/myFamily            - Get family recipes
+POST   /users/recipes             - Add new recipe (regular or family)
+GET    /users/me                  - Basic user info (login status)
+GET    /users/lastSearchQuery     - Last query stored in session
+
+NEW ENDPOINTS (Not in original API spec):
+-------------------------------------------
++ POST   /auth/Logout                - Log out and reset session
++ GET    /user/viewedIds             - Get IDs of viewed recipes
++ GET    /users/me                   - Return login status and username
++ GET    /users/lastSearchQuery      - Return last search query from session
++ GET    /recipes/:id/preview        - Recipe preview by ID
+
+MODIFIED BEHAVIOR:
+----------------------
+* /recipes (GET) now uses `limit` as optional (default: 5)
+* /recipes/:id/like handles DB and API fallback
+* /users/favorites saves new recipes from API if not in DB
+
