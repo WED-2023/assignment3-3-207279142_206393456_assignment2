@@ -59,9 +59,11 @@
         </span>
       </div>
 
-      <p v-if="recipe.family_owner" class="card-text mt-1">
-        Family Recipe by {{ recipe.family_owner }} ({{ recipe.family_event }})
-      </p>
+      <div v-if="recipe.family_owner" class="card-text mt-1">
+        <p class="mb-1">Family Recipe for {{ recipe.family_event }}</p>
+        <p class="mb-0">by {{ recipe.family_owner }}</p>
+      </div>
+
 
       <button @click.stop="likeRecipe" class="like-btn mt-1">
         👍 {{ likes }}
@@ -76,11 +78,11 @@
         </ul>
 
         <h6>Instructions:</h6>
-        <ol class="small">
-          <li v-for="(step, index) in formattedInstructions" :key="index">
+        <div class="small">
+          <div v-for="(step, index) in formattedInstructions" :key="index">
             {{ step }}
-          </li>
-        </ol>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -204,10 +206,10 @@ export default {
 }
 .card.family-preview {
   width: 100%;
-  max-width: 1000px;
+  max-width: none;
   padding: 20px;
   max-height: none;
-  min-height: 600px;
+  min-height: 800px;
   border: none !important;
   background-color: transparent !important;
 
@@ -456,15 +458,8 @@ export default {
 .recipePreview.preview-home .badge-label small {
   font-size: clamp(0.8rem, 1.3vw, 1rem);
 }
-
-
-.family-extra ul,
-.family-extra ol {
-  padding-left: 16px;
-  margin: 0;
-  font-size: 0.85rem;
-}
-.family-extra li {
+.family-extra .small > div {
   margin-bottom: 6px;
+  font-size: 0.85rem;
 }
 </style>
