@@ -72,7 +72,7 @@ export default {
     const v$ = useVuelidate(rules, state);
     const loginError = ref('');
     const isLoading = ref(false);
-    const showPassword = ref(false); // ← checkbox binding
+    const showPassword = ref(false); //checkbox binding
 
     const login = async () => {
       loginError.value = '';
@@ -110,33 +110,32 @@ export default {
 </script>
 
 <style scoped>
-.login-page {
-  max-width: 400px;
-  margin: auto;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-}
-.list-title {
-  font-size: 2.6rem;
-  font-weight: 800;
-  text-align: center;
-  color: #000000;
-  margin: 40px 0 30px;
-  position: relative;
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-  letter-spacing: 1px;
-  text-transform: none;
-  font-family: 'Pacifico', cursive;
+  .login-page {
+    max-width: 400px;
+    margin: auto;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+  }
+  .list-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    text-align: center;
+    color: #000000;
+    margin: 40px 0 30px;
+    position: relative;
+    letter-spacing: 1px;
+    text-transform: none;
+    font-family: 'Pacifico', cursive;
 
-}
+  }
 
-.list-title::after {
-  content: '';
-  display: block;
-  width: 100px;
-  height: 4px;
-  background: linear-gradient(to right, #9ae0f1, #b3efe5);
-  margin: 12px auto 0;
-  border-radius: 2px;
-}
+  .list-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #9ae0f1, #b3efe5);
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
 
 </style>
