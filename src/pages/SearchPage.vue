@@ -232,7 +232,6 @@ export default {
   color: #000;
   margin: 40px 0 30px;
   position: relative;
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   letter-spacing: 1px;
   text-transform: none;
   font-family: 'Pacifico', cursive;
