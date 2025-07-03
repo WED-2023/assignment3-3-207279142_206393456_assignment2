@@ -7,9 +7,7 @@
   
       <!-- Image -->
       <b-form-group label="Image URL:" label-for="image">
-        <!-- <b-form-input id="image" v-model="form.image" required type="url" placeholder="https://example.com/image.jpg"/> -->
         <b-form-input id="image" v-model="form.image" required placeholder="e.g. image.png" />
-
       </b-form-group>
   
       <!-- Time -->
