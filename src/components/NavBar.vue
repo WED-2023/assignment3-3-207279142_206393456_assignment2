@@ -3,18 +3,6 @@
     <router-link class="navbar-brand fw-bold text-white" :to="{ name: 'main' }">
       <i class="bi bi-egg-fried me-2"></i> Home
     </router-link>
-<!-- 
-    <button
-      class="navbar-toggler text-white"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarContent"
-      aria-controls="navbarContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
     <button
       class="navbar-toggler text-white"
       type="button"
@@ -139,114 +127,114 @@
   
 <style scoped>
 
-.custom-navbar {
-  background-color: #ffffff;
-  box-shadow: 0 2px 10px rgba(134, 229, 218, 0.984);
-  border-radius: 0 0 12px 12px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  min-height: 90px; 
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  .custom-navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(134, 229, 218, 0.984);
+    border-radius: 0 0 12px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    min-height: 90px; 
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
 
-}
-
-
-.navbar .nav-link {
-  color: #1a3d60 !important;
-  font-size: 1.5rem;
-  font-weight: 600;
-  font-family: 'Pacifico', cursive;
-
-}
-
-.navbar .nav-link:hover {
-  font-size: 1.6rem;
-}
-
-.navbar .btn {
-  font-weight: bold;
-}
-.navbar-center-image {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0px;
-  height: 60px;
-}
-
-.navbar-grandma-img {
-  height: 100px;
-  object-fit: contain;
-}
-.navbar-brand {
-  color: #1a3d60 !important;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 1.7rem;
-  font-family: 'Pacifico', cursive;
-  transition: background-color 0.3s ease;
-}
-.navbar-brand:hover {
-  font-size: 1.8rem;
-  
-}
-.dropdown-menu .dropdown-item {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #1a3d60 !important;
-  font-family: 'Pacifico', cursive;
-
-}
-.activeDropdown {
-  background-color: #c6f1ff !important;
-  border-radius: 8px;
-}
-.router-link-active.dropdown-item {
-  background-color: #c6f1ff;
-  border-radius: 8px;
-}
-
-.dropdown-item:hover {
-  background-color: #e2f7ff;
-}
-
-.btn-add-recipe {
-  background-color: white;
-  font-size: 1.2rem;
-  color: #1a3d60;
-  font-weight: bold;
-  font-family: 'Pacifico', cursive;
+  }
 
 
-}
-.btn-add-recipe:hover {
-  background-color:  #1a3d60;
-  color: #ffffff;
-  border: 2px solid ;
-  border-radius: 8px;
-}
+  .navbar .nav-link {
+    color: #1a3d60 !important;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Pacifico', cursive;
+
+  }
+
+  .navbar .nav-link:hover {
+    font-size: 1.6rem;
+  }
+
+  .navbar .btn {
+    font-weight: bold;
+  }
+  .navbar-center-image {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0px;
+    height: 60px;
+  }
+
+  .navbar-grandma-img {
+    height: 100px;
+    object-fit: contain;
+  }
+  .navbar-brand {
+    color: #1a3d60 !important;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.7rem;
+    font-family: 'Pacifico', cursive;
+    transition: background-color 0.3s ease;
+  }
+  .navbar-brand:hover {
+    font-size: 1.8rem;
+    
+  }
+  .dropdown-menu .dropdown-item {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #1a3d60 !important;
+    font-family: 'Pacifico', cursive;
+
+  }
+  .activeDropdown {
+    background-color: #c6f1ff !important;
+    border-radius: 8px;
+  }
+  .router-link-active.dropdown-item {
+    background-color: #c6f1ff;
+    border-radius: 8px;
+  }
+
+  .dropdown-item:hover {
+    background-color: #e2f7ff;
+  }
+
+  .btn-add-recipe {
+    background-color: white;
+    font-size: 1.2rem;
+    color: #1a3d60;
+    font-weight: bold;
+    font-family: 'Pacifico', cursive;
 
 
-.btn-logout {
-  font-size: 1.2rem;
-  font-weight: bold;
-  font-family: 'Pacifico', cursive;
-  border-radius: 8px;
-  padding: 6px 12px;
-  color: #a01212;
-  border: 2px solid #a01212;
-  background-color: white;
-  transition: all 0.3s ease;
-}
+  }
+  .btn-add-recipe:hover {
+    background-color:  #1a3d60;
+    color: #ffffff;
+    border: 2px solid ;
+    border-radius: 8px;
+  }
 
-.btn-logout:hover {
-  background-color:  #a01212;
-  color: #ffffff;
-  border-color: #a01212;
-}
+
+  .btn-logout {
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Pacifico', cursive;
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: #a01212;
+    border: 2px solid #a01212;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-logout:hover {
+    background-color:  #a01212;
+    color: #ffffff;
+    border-color: #a01212;
+  }
 </style>
   
