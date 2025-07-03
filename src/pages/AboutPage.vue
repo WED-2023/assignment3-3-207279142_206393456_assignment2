@@ -122,46 +122,45 @@ export default {
 </script>
 
 <style scoped>
-.about-page {
-  line-height: 1.6;
-}
+  .about-page {
+    line-height: 1.6;
+  }
 
-.list-title {
-  font-size: 2.6rem;
-  font-weight: 800;
-  text-align: center;
-  color: #000000;
-  margin: 40px 0 30px;
-  position: relative;
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-  letter-spacing: 1px;
-  text-transform: none;
-  font-family: 'Pacifico', cursive;
+  .list-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    text-align: center;
+    color: #000000;
+    margin: 40px 0 30px;
+    position: relative;
+    letter-spacing: 1px;
+    text-transform: none;
+    font-family: 'Pacifico', cursive;
 
-}
+  }
 
-.list-title::after {
-  content: '';
-  display: block;
-  width: 100px;
-  height: 4px;
-  background: linear-gradient(to right, #9ae0f1, #b3efe5);
-  margin: 12px auto 0;
-  border-radius: 2px;
-}
-.btn-api-link {
-  color: black;
-  border: none;
-  padding: 6px 14px;
-  font-weight: 500;
-  border-radius: 8px;
-  text-decoration: none;
-  border-color: black;
-}
+  .list-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #9ae0f1, #b3efe5);
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+  .btn-api-link {
+    color: black;
+    border: none;
+    padding: 6px 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    border-color: black;
+  }
 
-.btn-api-link:hover {
-  background-color: black;
-  color: white;
-}
+  .btn-api-link:hover {
+    background-color: black;
+    color: white;
+  }
 
 </style>
