@@ -75,7 +75,6 @@ export default {
         const response = await axios.get("/recipes/random", {
           withCredentials: true
         });
-        //randomRecipes.value = response.data.slice(0, 3);
         randomRecipes.value = response.data.slice(0, 3).map(r => ({
           ...r,
           wasViewed: viewedRecipeIds.value.includes(r.recipe_id || r.id)
