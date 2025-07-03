@@ -4,7 +4,6 @@
       <div v-else-if="recipes.length === 0" class="no-recipes-message">
         You have no favorite recipes yet.
       </div>
-      <!-- <RecipePreviewList v-else title="My Favorites" :recipes="recipes" /> -->
       <RecipePreviewList v-else title="My Favorites" :recipes="recipes" :gridMode="true" />
 
     </div>
