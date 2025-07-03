@@ -1,25 +1,6 @@
 <template>
   <div id="app">
     <NavBar />
-
-    <!-- <div id="nav">
-      <router-link :to="{ name: 'main' }">Vue Recipes</router-link> |
-      <router-link :to="{ name: 'search' }">Search</router-link> |
-      <span v-if="!store.username">
-        Guest:
-        <router-link :to="{ name: 'register' }">Register</router-link> |
-        <router-link :to="{ name: 'login' }">Login</router-link> |
-      </span>
-      <span v-else>
-        {{ store.username }}:
-        <router-link :to="{ name: 'myRecipes' }">My Recipes</router-link> |
-        <router-link :to="{ name: 'favorites' }">My Favorites</router-link> |
-        <router-link :to="{ name: 'myFamily' }">My Family</router-link> |
-        <router-link :to="{ name: 'about' }">About</router-link> |
-
-        <button @click="logout" class="btn btn-link p-0">Logout</button> |
-      </span>
-    </div> -->
     <router-view />
   </div>
 </template>
